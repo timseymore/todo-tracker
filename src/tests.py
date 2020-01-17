@@ -1,6 +1,7 @@
-from todo import ToDo, Task
+from todo import ToDo, Task, ToDoTracker
 
 # Test Objects
+TEST_TRACKER = ToDoTracker()
 
 TEST_TASK_1 = Task("Task 1")
 TEST_TASK_2 = Task("Task 2")
@@ -13,24 +14,49 @@ TEST_TODO_4 = ToDo("ToDo 4")
 TEST_TODO_5 = ToDo("ToDo 5")
 
 class Test:
-    def check_expect(self, expected, actual):
+    def check_expect(self, actual, expected):
         if expected == actual:
             print("Test Passed")
         else:
             print("Test Failed: Expected: " + str(expected) + " Actual: " + str(actual))
-
-class TestTask:
-    pass
 
 
 # Test Area #  
 
 t = Test()
 
-# TEST: Task.contains()
 
-# TEST: Task.add_todo() - empty, add one         
+TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
+
+print("TEST: Task.add_todo() - empty, add one")         
 TEST_TASK_1.add_todo(TEST_TODO_1)
-t.check_expect(TEST_TASK_1.todos[0], TEST_TODO_1)
+t.check_expect(TEST_TASK_1.nodes[0], TEST_TODO_1)
 
-# TEST: Task.remove_todo()
+print("TEST: Task.add_todo() - not empty, add new")         
+TEST_TASK_1.add_todo(TEST_TODO_2)
+t.check_expect(TEST_TASK_1.nodes[1], TEST_TODO_2)
+
+print("TEST: Task.num_todos() - 2") 
+t.check_expect(TEST_TASK_1.num_todos(), 2)
+
+print("TEST: Task.add_todo() - not empty, add existing")         
+TEST_TASK_1.add_todo(TEST_TODO_1)
+t.check_expect(TEST_TASK_1.num_todos(), 2)
+
+print("TEST: Task.contains() - True") 
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
+
+TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
+
+print("TEST: Task.contains() - False") 
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
+
+print("TEST: Task.remove_todo() - contains = true") 
+TEST_TASK_1.remove_todo(TEST_TODO_1)
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
+
+TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
+
+
+TEST_TRACKER.root.add_todo(TEST_TASK_1)
+TEST_TRACKER.print_task(TEST_TRACKER.root, TEST_TRACKER.indent_level)

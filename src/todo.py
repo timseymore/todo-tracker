@@ -11,11 +11,22 @@ class Composite:
         """ Creates object instance """
 
         self.description = description
+        self.nodes = []
 
     def get_description(self) -> str:
         """ Returns description string """
 
-        return self.description    
+        return self.description 
+
+    def get_nodes(self) -> list:
+        """ Returns list of child nodes """
+
+        return self.nodes
+
+    def __str__(self) -> str:
+        """ Returns string for printing object """
+
+        return self.description
 
 
 class ToDo(Composite):
@@ -26,9 +37,6 @@ class ToDo(Composite):
 
         super().__init__(description) 
 
-    def __str__(self) -> str:
-        return self.description
-     
 
 class Task(Composite):
     """ A task with a list of to-do entries """
@@ -37,12 +45,18 @@ class Task(Composite):
         """ Creates object instance """
 
         super().__init__(description)
-        self.todos = []
 
-    # !!!
+    def num_todos(self) -> int:
+        """ Returns the number of to-dos in task """
+
+        return self.nodes.__len__()
+
     def contains(self, t: ToDo) -> bool:
         """ Returns True if ToDo is in self.todos """
 
+        for todo in self.nodes:
+            if t.get_description() == todo.get_description():
+                return True
         return False
 
     def add_todo(self, t: ToDo):
@@ -53,7 +67,7 @@ class Task(Composite):
         """
 
         if not self.contains(t):
-            self.todos.append(t)
+            self.nodes.append(t)
 
     def remove_todo(self, t: ToDo):
         """ Removes ToDo to self.todos
@@ -63,11 +77,7 @@ class Task(Composite):
         """
 
         if self.contains(t):
-            self.todos.remove(t)
-
-    # !!!
-    def __str__(self) -> str:
-        return ""    
+            self.nodes.remove(t)  
 
 
 class ToDoTracker:
@@ -80,12 +90,22 @@ class ToDoTracker:
         """ Creates object instance """
 
         self.root = Task("ToDo Tracker")
+        self.indent_level = "  "
 
     # !!!
     def main(self):
         """ Runs main ui """
 
         print("ToDo Tracker")
+
+
+    def print_task(self, t, indent):
+        """ Prints the description and to-dos for task """
+
+        print(indent + str(t))
+        for entry in t.get_nodes():
+            self.print_task(entry, indent + self.indent_level)
+
 
 
 if __name__ == "__main__":
