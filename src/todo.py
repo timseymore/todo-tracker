@@ -1,7 +1,6 @@
 """ todo.py
  
 A simple todo app
-
 """
 
 
@@ -46,7 +45,6 @@ class Task(Composite):
 
         return False
 
-    # !!!
     def add_todo(self, t: ToDo):
         """ Adds ToDo to self.todos
 
@@ -57,7 +55,6 @@ class Task(Composite):
         if not self.contains(t):
             self.todos.append(t)
 
-    # !!!
     def remove_todo(self, t: ToDo):
         """ Removes ToDo to self.todos
 
