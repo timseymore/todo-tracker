@@ -96,7 +96,11 @@ class ToDoTracker:
     def main(self):
         """ Runs main ui """
 
-        print("ToDo Tracker")
+        print()
+        print("  ToDo Tracker")
+        print("-----------------")
+        print("type 'h' for help")
+        self.get_input()
 
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
@@ -110,6 +114,13 @@ class ToDoTracker:
 
         self.print_task(self.root, "")
 
+    def get_input(self) -> str:
+        """ Get and Return input from user """
+        
+        print()
+        inpt = input('>>> ')
+        print()
+        return inpt
 
 
 if __name__ == "__main__":
