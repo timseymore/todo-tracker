@@ -26,8 +26,6 @@ class Test:
 t = Test()
 
 
-TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
-
 print("TEST: Task.add_todo() - empty, add one")         
 TEST_TASK_1.add_todo(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.nodes[0], TEST_TODO_1)
@@ -46,8 +44,6 @@ t.check_expect(TEST_TASK_1.num_todos(), 2)
 print("TEST: Task.contains() - True") 
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
 
-TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
-
 print("TEST: Task.contains() - False") 
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
 
@@ -55,8 +51,6 @@ print("TEST: Task.remove_todo() - contains = true")
 TEST_TASK_1.remove_todo(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 
-TEST_TRACKER.print_task(TEST_TASK_1, TEST_TRACKER.indent_level)
-
-
+# Test ToDoTracker.print_task()
 TEST_TRACKER.root.add_todo(TEST_TASK_1)
 TEST_TRACKER.print_task(TEST_TRACKER.root, TEST_TRACKER.indent_level)
