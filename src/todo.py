@@ -91,16 +91,36 @@ class ToDoTracker:
 
         self.root = Task("ToDo Tracker")
         self.indent_level = "  "
+        self.commands = [
+            'help',
+            'exit'
+        ]
 
     # !!!
     def main(self):
         """ Runs main ui """
-
         print()
         print("  ToDo Tracker")
         print("-----------------")
-        print("type 'h' for help")
-        self.get_input()
+        print("type 'help' for help")        
+
+        while True:
+            choice = self.get_input()
+            
+            # Handle input
+            if choice == 'exit':
+                quit()
+            if choice == 'help':
+                self.show_help_menu()
+        
+
+    def show_help_menu(self):
+        """ Print help menu to console """
+
+        print("COMMANDS")
+        print("========")
+        print("- exit : Exit program")
+        print("- help : Help Menu")
 
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
@@ -119,8 +139,19 @@ class ToDoTracker:
         
         print()
         inpt = input('>>> ')
+        while not self.is_valid_command(inpt):
+            inpt = input('>>> ')
         print()
         return inpt
+
+    def is_valid_command(self, c):
+        """ Returns True if command is valid """
+
+        for command in self.commands:
+            if c == command:
+                return True
+        return False
+
 
 
 if __name__ == "__main__":
