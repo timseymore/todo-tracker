@@ -98,13 +98,17 @@ class ToDoTracker:
 
         print("ToDo Tracker")
 
-
-    def print_task(self, t, indent):
+    def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
 
-        print(indent + str(t))
-        for entry in t.get_nodes():
+        print(indent + str(task))
+        for entry in task.get_nodes():
             self.print_task(entry, indent + self.indent_level)
+
+    def print_all(self):
+        """ Prints all tasks and to-dos """
+
+        self.print_task(self.root, "")
 
 
 

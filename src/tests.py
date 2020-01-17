@@ -51,6 +51,6 @@ print("TEST: Task.remove_todo() - contains = true")
 TEST_TASK_1.remove_todo(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 
-# Test ToDoTracker.print_task()
+print("TEST: ToDoTracker.print_all()")
 TEST_TRACKER.root.add_todo(TEST_TASK_1)
-TEST_TRACKER.print_task(TEST_TRACKER.root, TEST_TRACKER.indent_level)
+TEST_TRACKER.print_all()
