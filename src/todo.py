@@ -108,14 +108,14 @@ class ToDoTracker:
         """ Runs main ui """
 
         current_task = self.root
+
         print()
         print("  ToDo Tracker")
         print("-----------------")
         print("type 'help' for help")        
         
-        while True:
+        while True:  
 
-                        
             choice = self.get_input()
 
             # Handle input
@@ -135,24 +135,25 @@ class ToDoTracker:
     def show_help_menu(self):
         """ Print help menu to console """
 
-        print("COMMANDS")
-        print("========")
-        print("- exit : Exit program")
-        print("- help : Help Menu")
+        print("       COMMANDS")
+        print("=======================")
+        print("| exit : Exit program")
+        print("| help : Help Menu")
+        print("| ls : List current task and todos")
+        print("| ct : Change current task")
+        print("| pwt : Show present working task")    
 
-    def change_task(self, task, current):
+    def change_task(self, task: Task, current: Task) -> Task:
         """ Change current working task 
         
         Returns new task if it exists in root, 
         returns root task otherwise and prints Error message
         """
-        if self.root.contains(task):
-            for t in self.root.nodes:
-                if task.get_description() == t.get_description():
-                    return t
-        else:
-            print("ERROR: Task does not exist")
-            return self.root
+        for t in self.root.nodes:
+            if task.get_description() == t.get_description():
+                return t
+        print("ERROR: Task does not exist in root")
+        return self.root
 
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
