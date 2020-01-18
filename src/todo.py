@@ -93,25 +93,43 @@ class ToDoTracker:
         self.indent_level = "  "
         self.commands = [
             'help',
-            'exit'
+            'exit',
+            'addtask',
+            'addtodo',
+            'rmtask',
+            'rmtodo',
+            'ls',
+            'ct',
+            'pwt'
         ]
 
     # !!!
     def main(self):
         """ Runs main ui """
+
+        current_task = self.root
         print()
         print("  ToDo Tracker")
         print("-----------------")
         print("type 'help' for help")        
-
+        
         while True:
+
+                        
             choice = self.get_input()
-            
+
             # Handle input
             if choice == 'exit':
                 quit()
-            if choice == 'help':
-                self.show_help_menu()
+            elif choice == 'help':
+                self.show_help_menu() 
+            elif choice == 'ls':
+                self.print_task(current_task, "") 
+            elif choice == 'pwt':
+                print(current_task)
+            elif choice == 'ct':
+                print("Change to:")
+                current_task = self.change_task(input('>>> '), current_task)
         
 
     def show_help_menu(self):
@@ -121,6 +139,20 @@ class ToDoTracker:
         print("========")
         print("- exit : Exit program")
         print("- help : Help Menu")
+
+    def change_task(self, task, current):
+        """ Change current working task 
+        
+        Returns new task if it exists in root, 
+        returns root task otherwise and prints Error message
+        """
+        if self.root.contains(task):
+            for t in self.root.nodes:
+                if task.get_description() == t.get_description():
+                    return t
+        else:
+            print("ERROR: Task does not exist")
+            return self.root
 
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
