@@ -46,38 +46,43 @@ class Task(Composite):
 
         super().__init__(description)
 
-    def num_todos(self) -> int:
+    def num_nodes(self) -> int:
         """ Returns the number of to-dos in task """
 
         return self.nodes.__len__()
 
-    def contains(self, t: ToDo) -> bool:
-        """ Returns True if ToDo is in self.todos """
+    def contains(self, t: Composite) -> bool:
+        """ Returns True if Composite is in self.nodes 
+        
+        Checks for Composite with matching description 
+        and returns True if found
+        """
 
-        for todo in self.nodes:
-            if t.get_description() == todo.get_description():
+        for node in self.nodes:
+            if t.get_description() == node.get_description():
                 return True
         return False
 
-    def add_todo(self, t: ToDo):
-        """ Adds ToDo to self.todos
+    def add_node(self, t: Composite):
+        """ Adds Composite to self.nodes
 
-        checks if ToDo is already in list 
-        and adds it if not.
+        checks if Composite is already in list 
+        and adds it if not found.
         """
 
         if not self.contains(t):
             self.nodes.append(t)
 
-    def remove_todo(self, t: ToDo):
-        """ Removes ToDo to self.todos
+    def remove_node(self, t: str):
+        """ Removes Composite to self.nodes
 
-        checks if ToDo is already in list 
-        and removes it if so.
+        checks for Composite with matching description 
+        and removes it if found.
         """
 
-        if self.contains(t):
-            self.nodes.remove(t)  
+        for node in self.nodes:
+            if t.get_description() == node.get_description():
+                self.nodes.remove(node)
 
 
 class ToDoTracker:
@@ -106,7 +111,7 @@ class ToDoTracker:
     # !!!
     def main(self):
         """ Runs main ui """
-
+        # setup
         current_task = self.root
 
         print()
@@ -114,11 +119,12 @@ class ToDoTracker:
         print("-----------------")
         print("type 'help' for help")        
         
-        while True:  
-
+        # main loop
+        while True:
+            # get user input
             choice = self.get_input()
 
-            # Handle input
+            # handle user input
             if choice == 'exit':
                 quit()
             elif choice == 'help':
@@ -130,7 +136,20 @@ class ToDoTracker:
             elif choice == 'ct':
                 print("Change to:")
                 current_task = self.change_task(input('>>> '), current_task)
-        
+            elif choice == 'addtask':
+                print("New Task:")
+                temp = Task(input('>>> '))
+                self.root.add_node(temp)
+            elif choice == 'addtodo':
+                print("New To-do:")
+                temp = ToDo(input('>>> '))
+                current_task.add_node(temp)  
+            elif choice == 'rmtask':
+                print("Task to remove:")
+                self.root.remove_node(input('>>> ')) 
+            elif choice == 'rmtodo':
+                print("To-do to remove:")
+                current_task.remove_node(input('>>> '))       
 
     def show_help_menu(self):
         """ Print help menu to console """
@@ -139,18 +158,22 @@ class ToDoTracker:
         print("=======================")
         print("| exit : Exit program")
         print("| help : Help Menu")
-        print("| ls : List current task and todos")
-        print("| ct : Change current task")
-        print("| pwt : Show present working task")    
+        print("| ls : List current working task and todos")
+        print("| ct : Change current working task")
+        print("| pwt : Show present working task")
+        print("| addtask : Add new task to tracker")  
+        print("| addtodo : Add new to-do to current task") 
+        print("| rmtask : Delete task from tracker") 
+        print("| rmtodo : Delete to-do from current task")    
 
-    def change_task(self, task: Task, current: Task) -> Task:
+    def change_task(self, task: str, current: Task) -> Task:
         """ Change current working task 
         
-        Returns new task if it exists in root, 
+        Returns new task if it exists in current, 
         returns root task otherwise and prints Error message
         """
-        for t in self.root.nodes:
-            if task.get_description() == t.get_description():
+        for t in current.nodes:
+            if task == t.get_description():
                 return t
         print("ERROR: Task does not exist in root")
         return self.root
@@ -184,7 +207,6 @@ class ToDoTracker:
             if c == command:
                 return True
         return False
-
 
 
 if __name__ == "__main__":
