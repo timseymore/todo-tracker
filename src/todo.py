@@ -72,6 +72,8 @@ class Task(Composite):
 
         if not self.contains(t):
             self.nodes.append(t)
+        else:
+            print("ERROR: Node already exists in task")
 
     def remove_node(self, t: str):
         """ Removes Composite to self.nodes
@@ -81,8 +83,10 @@ class Task(Composite):
         """
 
         for node in self.nodes:
-            if t.get_description() == node.get_description():
+            if t == node.get_description():
                 self.nodes.remove(node)
+                return
+        print("ERROR: Node not found in task")
 
 
 class ToDoTracker:
@@ -108,7 +112,6 @@ class ToDoTracker:
             'pwt'
         ]
 
-    # !!!
     def main(self):
         """ Runs main ui """
         # setup
@@ -175,7 +178,7 @@ class ToDoTracker:
         for t in current.nodes:
             if task == t.get_description():
                 return t
-        print("ERROR: Task does not exist in root")
+        print("ERROR: Task does not exist in current - changing to root")
         return self.root
 
     def print_task(self, task, indent):
