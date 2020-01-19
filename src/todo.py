@@ -222,13 +222,16 @@ class ToDoTracker:
 
     def save_to_disk(self):
         """ Save ToDoTracker object to disk """
+
         os.mkdir(self.root.get_description())
         for task in self.root.get_nodes():
             os.mkdir(self.root.get_description() + "\\" + task.get_description())
             for todo in task.get_nodes():
-                f = open(self.root.get_description() + "\\" + task.get_description() + "\\" + todo.get_description(), 'w')
-                f.write(todo.get_description())
-                f.close()
+                with open(self.root.get_description()
+                        + "\\" + task.get_description()
+                        + "\\" + todo.get_description(), 'w') as f:
+                    f.write(todo.get_description())
+                    f.close()
 
 
 
