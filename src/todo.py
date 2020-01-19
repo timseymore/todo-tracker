@@ -76,7 +76,7 @@ class Task(Composite):
         else:
             print("ERROR: Node already exists in task")
 
-    def remove_node(self, t: str):
+    def remove_node(self, t: Composite):
         """ Removes Composite to self.nodes
 
         checks for Composite with matching description 
@@ -84,7 +84,7 @@ class Task(Composite):
         """
 
         for node in self.nodes:
-            if t == node.get_description():
+            if t.get_description() == node.get_description():
                 self.nodes.remove(node)
                 return
         print("ERROR: Node not found in task")
