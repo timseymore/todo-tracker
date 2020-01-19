@@ -3,6 +3,7 @@
 A simple todo app
 """
 
+import os, sys
 
 class Composite:
     """ Composite Pattern object """
@@ -129,7 +130,15 @@ class ToDoTracker:
 
             # handle user input
             if choice == 'exit':
-                quit()
+                print("Save work? (y/n)")
+                save = input('>>> ')
+                while save not in ['y', 'n']:
+                    save = input('>>> ')
+                if save == 'y':
+                    self.save_to_disk()
+                    print("Saved to disk")
+                print("Exiting program")
+                sys.exit()
             elif choice == 'help':
                 self.show_help_menu() 
             elif choice == 'ls':
@@ -210,6 +219,11 @@ class ToDoTracker:
             if c == command:
                 return True
         return False
+
+    def save_to_disk(self):
+        """ Save ToDoTracker object to disk """
+
+
 
 
 if __name__ == "__main__":
