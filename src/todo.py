@@ -3,7 +3,7 @@
 A simple todo app
 """
 
-import os, sys
+import os, sys, shutil
 
 class Composite:
     """ Composite Pattern object """
@@ -115,7 +115,9 @@ class ToDoTracker:
 
     def main(self):
         """ Runs main ui """
-        # setup
+        # setup  
+              
+        self.load_from_disk()
         current_task = self.root
 
         print()
@@ -135,6 +137,7 @@ class ToDoTracker:
                 while save not in ['y', 'n']:
                     save = input('>>> ')
                 if save == 'y':
+                    self.delete_all()
                     self.save_to_disk()
                     print("Saved to disk")
                 print("Exiting program")
@@ -222,7 +225,6 @@ class ToDoTracker:
 
     def save_to_disk(self):
         """ Save ToDoTracker object to disk """
-
         os.mkdir(self.root.get_description())
         for task in self.root.get_nodes():
             os.mkdir(self.root.get_description() + "\\" + task.get_description())
@@ -233,6 +235,21 @@ class ToDoTracker:
                     f.write(todo.get_description())
                     f.close()
 
+    def load_from_disk(self):
+        index = 0
+        for task in os.listdir("./ToDo Tracker"):
+            if os.path.isdir(task):
+                self.root.add_node(Task(task))                
+                for todo in os.listdir(task):
+                    self.root.nodes[index].add_node(ToDo(todo))
+                index += 1   
+    
+    def delete_all(self):
+        try:
+            shutil.rmtree("./ToDo Tracker") 
+        except:
+            print('Error while deleting directory')
+        
 
 
 
