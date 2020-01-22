@@ -206,7 +206,11 @@ class ToDoTracker:
         self.print_task(self.root, "")
 
     def get_input(self) -> str:
-        """ Get and Return input from user """
+        """ Get and Return input from user 
+        
+        Continue prompting for input until valid command is entered
+        RETURN: input
+        """
         
         print()
         inpt = input('>>> ')
@@ -215,8 +219,11 @@ class ToDoTracker:
         print()
         return inpt
 
-    def is_valid_command(self, c):
-        """ Returns True if command is valid """
+    def is_valid_command(self, c) -> bool:
+        """ Check if command is in list of commands
+        
+        RETURN: True if command is valid, False otherwise 
+        """
 
         for command in self.commands:
             if c == command:
@@ -225,14 +232,16 @@ class ToDoTracker:
 
     def save_to_disk(self):
         """ Save ToDoTracker object to disk """
-        os.mkdir(self.root.get_description())
+
+        root = self.root.get_description()
+        os.mkdir(root)
         for task in self.root.get_nodes():
-            os.mkdir(self.root.get_description() + "\\" + task.get_description())
+            tempdir = task.get_description()
+            os.mkdir(root + "\\" + tempdir)
             for todo in task.get_nodes():
-                with open(self.root.get_description()
-                        + "\\" + task.get_description()
-                        + "\\" + todo.get_description(), 'w') as f:
-                    f.write(todo.get_description())
+                tempfile = todo.get_description()
+                with open(root + "\\" + tempdir + "\\" + tempfile, 'w') as f:
+                    f.write(tempfile)
                     f.close()
 
     def load_from_disk(self):
