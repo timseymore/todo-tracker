@@ -3,7 +3,7 @@
 A simple todo app
 """
 
-import os, sys, shutil
+import os, sys, shutil, pickle
 
 class Composite:
     """ Composite Pattern object """
@@ -76,7 +76,7 @@ class Task(Composite):
         else:
             print("ERROR: Node already exists in task")
 
-    def remove_node(self, t: Composite):
+    def remove_node(self, t: str):
         """ Removes Composite to self.nodes
 
         checks for Composite with matching description 
@@ -84,7 +84,7 @@ class Task(Composite):
         """
 
         for node in self.nodes:
-            if t.get_description() == node.get_description():
+            if t == node.get_description():
                 self.nodes.remove(node)
                 return
         print("ERROR: Node not found in task")
@@ -137,7 +137,7 @@ class ToDoTracker:
                 while save not in ['y', 'n']:
                     save = input('>>> ')
                 if save == 'y':
-                    self.delete_all()
+                    # self.delete_all()
                     self.save_to_disk()
                     print("Saved to disk")
                 print("Exiting program")
@@ -233,25 +233,33 @@ class ToDoTracker:
     def save_to_disk(self):
         """ Save ToDoTracker object to disk """
 
-        root = self.root.get_description()
-        os.mkdir(root)
-        for task in self.root.get_nodes():
-            tempdir = task.get_description()
-            os.mkdir(root + "\\" + tempdir)
-            for todo in task.get_nodes():
-                tempfile = todo.get_description()
-                with open(root + "\\" + tempdir + "\\" + tempfile, 'w') as f:
-                    f.write(tempfile)
-                    f.close()
+        # root = self.root.get_description()
+        # os.mkdir(root)
+        # for task in self.root.get_nodes():
+        #     tempdir = task.get_description()
+        #     os.mkdir(root + "\\" + tempdir)
+        #     for todo in task.get_nodes():
+        #         tempfile = todo.get_description()
+        #         with open(root + "\\" + tempdir + "\\" + tempfile, 'w') as f:
+        #             f.write(tempfile)
+        #             f.close()
+
+        temp_file = open("data.obj", 'wb')
+        pickle.dump(self.root, temp_file)
+        temp_file.close()
 
     def load_from_disk(self):
-        index = 0
-        for task in os.listdir("./ToDo Tracker"):
-            if os.path.isdir(task):
-                self.root.add_node(Task(task))                
-                for todo in os.listdir(task):
-                    self.root.nodes[index].add_node(ToDo(todo))
-                index += 1   
+        # index = 0
+        # for task in os.listdir("./ToDo Tracker"):
+        #     if os.path.isdir(task):
+        #         self.root.add_node(Task(task))                
+        #         for todo in os.listdir(task):
+        #             self.root.nodes[index].add_node(ToDo(todo))
+        #         index += 1   
+
+        temp_file = open('data.obj', 'rb')
+        self.root = pickle.load(temp_file)
+        temp_file.close()
     
     def delete_all(self):
         try:

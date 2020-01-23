@@ -47,7 +47,7 @@ print("TEST: Task.contains() - False")
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
 
 print("TEST: Task.remove_node() - contains = true") 
-TEST_TASK_1.remove_node(TEST_TODO_1)
+TEST_TASK_1.remove_node(TEST_TODO_1.get_description())
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 
 print("TEST: ToDoTracker.print_all()")
