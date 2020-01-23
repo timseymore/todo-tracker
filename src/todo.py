@@ -115,8 +115,8 @@ class ToDoTracker:
 
     def main(self):
         """ Runs main ui """
-        # setup  
-              
+
+        # setup               
         self.load_from_disk()
         current_task = self.root
 
@@ -137,7 +137,6 @@ class ToDoTracker:
                 while save not in ['y', 'n']:
                     save = input('>>> ')
                 if save == 'y':
-                    # self.delete_all()
                     self.save_to_disk()
                     print("Saved to disk")
                 print("Exiting program")
@@ -187,6 +186,7 @@ class ToDoTracker:
         Returns new task if it exists in current, 
         returns root task otherwise and prints Error message
         """
+
         for t in current.nodes:
             if task == t.get_description():
                 return t
@@ -231,45 +231,31 @@ class ToDoTracker:
         return False
 
     def save_to_disk(self):
-        """ Save ToDoTracker object to disk """
+        """ Save ToDoTracker object to file """
 
-        # root = self.root.get_description()
-        # os.mkdir(root)
-        # for task in self.root.get_nodes():
-        #     tempdir = task.get_description()
-        #     os.mkdir(root + "\\" + tempdir)
-        #     for todo in task.get_nodes():
-        #         tempfile = todo.get_description()
-        #         with open(root + "\\" + tempdir + "\\" + tempfile, 'w') as f:
-        #             f.write(tempfile)
-        #             f.close()
-
-        temp_file = open("data.obj", 'wb')
-        pickle.dump(self.root, temp_file)
-        temp_file.close()
+        try:
+            temp_file = open("data.obj", 'wb')
+            pickle.dump(self.root, temp_file)
+            temp_file.close()
+        except FileNotFoundError:
+            print("ERROR: FileNotFound")
 
     def load_from_disk(self):
-        # index = 0
-        # for task in os.listdir("./ToDo Tracker"):
-        #     if os.path.isdir(task):
-        #         self.root.add_node(Task(task))                
-        #         for todo in os.listdir(task):
-        #             self.root.nodes[index].add_node(ToDo(todo))
-        #         index += 1   
+        """ Load saved data from file """
 
-        temp_file = open('data.obj', 'rb')
-        self.root = pickle.load(temp_file)
-        temp_file.close()
-    
-    def delete_all(self):
         try:
-            shutil.rmtree("./ToDo Tracker") 
-        except:
-            print('Error while deleting directory')
+            temp_file = open('data.obj', 'rb')
+            self.root = pickle.load(temp_file)
+            temp_file.close()
+        except FileNotFoundError:
+            print("ERROR: FIleNotFound")
+    
+    #  TODO: test and implement
+    def delete_all(self):
+        """ Delete all saved data """
+
+        pass
         
-
-
-
 
 if __name__ == "__main__":
     ToDoTracker().main()
