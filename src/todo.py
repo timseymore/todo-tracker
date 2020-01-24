@@ -1,9 +1,13 @@
 """ todo.py
  
-A simple todo app
+A simple to-do app
+
+- 2019 Tim Seymore
 """
 
-import os, sys, shutil, pickle
+import pickle
+import sys
+
 
 class Composite:
     """ Composite Pattern object """
@@ -165,20 +169,21 @@ class ToDoTracker:
                 print("To-do to remove:")
                 current_task.remove_node(input('>>> '))       
 
-    def show_help_menu(self):
+    @staticmethod
+    def show_help_menu():
         """ Print help menu to console """
 
-        print("       COMMANDS")
-        print("=======================")
-        print("| exit : Exit program")
-        print("| help : Help Menu")
-        print("| ls : List current working task and todos")
-        print("| ct : Change current working task")
-        print("| pwt : Show present working task")
-        print("| addtask : Add new task to tracker")  
-        print("| addtodo : Add new to-do to current task") 
-        print("| rmtask : Delete task from tracker") 
-        print("| rmtodo : Delete to-do from current task")    
+        print("                   COMMANDS")
+        print("=================================================")
+        print(" | exit    : Exit program")
+        print(" | help    : Help Menu")
+        print(" | ls      : List current working task and todos")
+        print(" | ct      : Change current working task")
+        print(" | pwt     : Show present working task")
+        print(" | addtask : Add new task to tracker")
+        print(" | addtodo : Add new to-do to current task")
+        print(" | rmtask  : Delete task from tracker")
+        print(" | rmtodo  : Delete to-do from current task")
 
     def change_task(self, task: str, current: Task) -> Task:
         """ Change current working task 
