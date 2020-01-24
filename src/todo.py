@@ -253,13 +253,7 @@ class ToDoTracker:
             self.root = pickle.load(temp_file)
             temp_file.close()
         except FileNotFoundError:
-            print("ERROR: FIleNotFound")
-    
-    #  TODO: test and implement
-    def delete_all(self):
-        """ Delete all saved data """
-
-        pass
+            print("ERROR: FileNotFound")
         
 
 if __name__ == "__main__":
