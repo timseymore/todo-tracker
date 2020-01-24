@@ -1,4 +1,4 @@
-""" todo.py
+""" To-Do Tracker
  
 A simple to-do app
 
