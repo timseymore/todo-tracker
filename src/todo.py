@@ -104,7 +104,7 @@ class ToDoTracker:
         """ Creates object instance """
 
         self.root = Task("ToDo Tracker")
-        self.indent_level = "  "
+        self.indent_level = " " * 2
         self.commands = [
             'help',
             'exit',
@@ -136,14 +136,7 @@ class ToDoTracker:
 
             # handle user input
             if choice == 'exit':
-                print("Save work? (y/n)")
-                save = input('>>> ')
-                while save not in ['y', 'n']:
-                    save = input('>>> ')
-                if save == 'y':
-                    self.save_to_disk()
-                    print("Saved to disk")
-                print("Exiting program")
+                self.exit_program()
                 sys.exit()
             elif choice == 'help':
                 self.show_help_menu() 
@@ -254,6 +247,16 @@ class ToDoTracker:
             temp_file.close()
         except FileNotFoundError:
             print("ERROR: FileNotFound")
+
+    def exit_program(self):
+        print("Save work? (y/n)")
+        save = input('>>> ')
+        while save not in ['y', 'n']:
+            save = input('>>> ')
+        if save == 'y':
+            self.save_to_disk()
+            print("Saved to disk")
+        print("Exiting program")
         
 
 if __name__ == "__main__":
