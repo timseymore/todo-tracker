@@ -120,75 +120,87 @@ class ToDoTracker:
     def main(self):
         """ Runs main ui """
 
-        # setup               
         self.load_from_disk()
         current_task = self.root
 
         print()
         print("  ToDo Tracker")
         print("-----------------")
-        print("type 'help' for help")        
-        
-        # main loop
+        print("type 'help' for help")
+
         while True:
-            # get user input
             choice = self.get_input()
+            current_task = self.handle_input(choice, current_task)
 
-            # handle user input
-            if choice == 'exit':
-                self.exit_program()
-                sys.exit()
-            elif choice == 'help':
-                self.show_help_menu() 
-            elif choice == 'ls':
-                self.print_task(current_task, "") 
-            elif choice == 'pwt':
-                print(current_task)
-            elif choice == 'ct':
-                print("Change to:")
-                current_task = self.change_task(input('>>> '), current_task)
-            elif choice == 'addtask':
-                print("New Task:")
-                temp = Task(input('>>> '))
-                self.root.add_node(temp)
-            elif choice == 'addtodo':
-                print("New To-do:")
-                temp = ToDo(input('>>> '))
-                current_task.add_node(temp)  
-            elif choice == 'rmtask':
-                print("Task to remove:")
-                self.root.remove_node(input('>>> ')) 
-            elif choice == 'rmtodo':
-                print("To-do to remove:")
-                current_task.remove_node(input('>>> '))       
+    def get_input(self) -> str:
+        """ Get and Return input from user
 
-    @staticmethod
-    def show_help_menu():
-        """ Print help menu to console """
+        Continue prompting for input until valid command is entered
+        RETURN: valid input
+        """
 
-        print("                   COMMANDS")
-        print("=================================================")
-        print(" | exit    : Exit program")
-        print(" | help    : Help Menu")
-        print(" | ls      : List current working task and todos")
-        print(" | ct      : Change current working task")
-        print(" | pwt     : Show present working task")
-        print(" | addtask : Add new task to tracker")
-        print(" | addtodo : Add new to-do to current task")
-        print(" | rmtask  : Delete task from tracker")
-        print(" | rmtodo  : Delete to-do from current task")
+        print()
+        inpt = input('>>> ')
+        while not self.is_valid_command(inpt):
+            inpt = input('>>> ')
+        print()
+        return inpt
+
+    def handle_input(self, c: str, t: Task) -> Task:
+        """ Handle given user input
+
+         - c: input choice
+         - t: current task
+         Return: new current task
+         """
+        if c == 'exit':
+            self.exit_program()
+            sys.exit()
+        elif c == 'help':
+            self.show_help_menu()
+        elif c == 'ls':
+            self.print_task(t, "")
+        elif c == 'pwt':
+            print(t)
+        elif c == 'ct':
+            print("Change to:")
+            t = self.change_task(input('>>> '), t)
+        elif c == 'addtask':
+            print("New Task:")
+            self.root.add_node(Task(input('>>> ')))
+        elif c == 'addtodo':
+            print("New To-do:")
+            t.add_node(ToDo(input('>>> ')))
+        elif c == 'rmtask':
+            print("Task to remove:")
+            self.root.remove_node(input('>>> '))
+        elif c == 'rmtodo':
+            print("To-do to remove:")
+            t.remove_node(input('>>> '))
+        return t
+
+    def is_valid_command(self, c) -> bool:
+        """ Check if command is in list of commands
+
+        RETURN: True if command is valid, False otherwise
+        """
+
+        for command in self.commands:
+            if c == command:
+                return True
+        return False
 
     def change_task(self, task: str, current: Task) -> Task:
-        """ Change current working task 
-        
-        Returns new task if it exists in current, 
+        """ Change current working task
+
+        Returns new task if it exists in current,
         returns root task otherwise and prints Error message
         """
 
         for t in current.nodes:
             if task == t.get_description():
                 return t
-        print("ERROR: Task does not exist in current - changing to root")
+        print("ERROR: Task does not exist in current working task - changing to root")
         return self.root
 
     def print_task(self, task, indent):
@@ -202,31 +214,6 @@ class ToDoTracker:
         """ Prints all tasks and to-dos """
 
         self.print_task(self.root, "")
-
-    def get_input(self) -> str:
-        """ Get and Return input from user 
-        
-        Continue prompting for input until valid command is entered
-        RETURN: input
-        """
-        
-        print()
-        inpt = input('>>> ')
-        while not self.is_valid_command(inpt):
-            inpt = input('>>> ')
-        print()
-        return inpt
-
-    def is_valid_command(self, c) -> bool:
-        """ Check if command is in list of commands
-        
-        RETURN: True if command is valid, False otherwise 
-        """
-
-        for command in self.commands:
-            if c == command:
-                return True
-        return False
 
     def save_to_disk(self):
         """ Save ToDoTracker object to file """
@@ -257,7 +244,23 @@ class ToDoTracker:
             self.save_to_disk()
             print("Saved to disk")
         print("Exiting program")
-        
+
+    @staticmethod
+    def show_help_menu():
+        """ Print help menu to console """
+
+        print("                   COMMANDS")
+        print("=================================================")
+        print(" | exit    : Exit program")
+        print(" | help    : Help Menu")
+        print(" | ls      : List current working task and todos")
+        print(" | ct      : Change current working task")
+        print(" | pwt     : Show present working task")
+        print(" | addtask : Add new task to tracker")
+        print(" | addtodo : Add new to-do to current task")
+        print(" | rmtask  : Delete task from tracker")
+        print(" | rmtodo  : Delete to-do from current task")
+
 
 if __name__ == "__main__":
     ToDoTracker().main()
