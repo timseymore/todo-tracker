@@ -257,9 +257,9 @@ class ToDoTracker:
         print(" | ls      : List current working task and todos")
         print(" | ct      : Change current working task")
         print(" | pwt     : Show present working task")
-        print(" | addtask : Add new task to tracker")
+        print(" | addtask : Add new task to current task")
         print(" | addtodo : Add new to-do to current task")
-        print(" | rmtask  : Delete task from tracker")
+        print(" | rmtask  : Delete task from current task")
         print(" | rmtodo  : Delete to-do from current task")
 
 
