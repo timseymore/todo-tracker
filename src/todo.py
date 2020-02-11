@@ -146,38 +146,38 @@ class ToDoTracker:
         print()
         return inpt
 
-    def handle_input(self, c: str, t: Task) -> Task:
+    def handle_input(self, inp: str, current: Task) -> Task:
         """ Handle given user input
 
-         - c: input choice
-         - t: current task
+         - inp: input choice
+         - current: current task
          Return: new current task
          """
-        if c == 'exit':
+        if inp == 'exit':
             self.exit_program()
             sys.exit()
-        elif c == 'help':
+        elif inp == 'help':
             self.show_help_menu()
-        elif c == 'ls':
-            self.print_task(t, "")
-        elif c == 'pwt':
-            print(t)
-        elif c == 'ct':
+        elif inp == 'ls':
+            self.print_task(current, "")
+        elif inp == 'pwt':
+            print(current)
+        elif inp == 'ct':
             print("Change to:")
-            t = self.change_task(input('>>> '), t)
-        elif c == 'addtask':
+            current = self.change_task(input('>>> '), current)
+        elif inp == 'addtask':
             print("New Task:")
-            self.root.add_node(Task(input('>>> ')))
-        elif c == 'addtodo':
+            current.add_node(Task(input('>>> ')))
+        elif inp == 'addtodo':
             print("New To-do:")
-            t.add_node(ToDo(input('>>> ')))
-        elif c == 'rmtask':
+            current.add_node(ToDo(input('>>> ')))
+        elif inp == 'rmtask':
             print("Task to remove:")
-            self.root.remove_node(input('>>> '))
-        elif c == 'rmtodo':
+            current.remove_node(input('>>> '))
+        elif inp == 'rmtodo':
             print("To-do to remove:")
-            t.remove_node(input('>>> '))
-        return t
+            current.remove_node(input('>>> '))
+        return current
 
     def is_valid_command(self, c) -> bool:
         """ Check if command is in list of commands
@@ -200,7 +200,8 @@ class ToDoTracker:
         for t in current.nodes:
             if task == t.get_description():
                 return t
-        print("ERROR: Task does not exist in current working task - changing to root")
+        if task != self.root.get_description():
+            print("ERROR: task not found in current working task - changing to 'ToDo Tracker'")
         return self.root
 
     def print_task(self, task, indent):
