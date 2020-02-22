@@ -9,7 +9,7 @@ import pickle
 import sys
 
 
-class Component:
+class Doable:
     """ Composite Pattern object """
 
     def __init__(self, description: str):
@@ -34,7 +34,7 @@ class Component:
         return self.description
 
 
-class ToDo(Component):
+class ToDo(Doable):
     """ A to-do entry in a given task """
 
     def __init__(self, description: str):
@@ -43,7 +43,7 @@ class ToDo(Component):
         super().__init__(description) 
 
 
-class Task(Component):
+class Task(Doable):
     """ A task with a list of to-do entries """
 
     def __init__(self, description: str):
@@ -52,11 +52,11 @@ class Task(Component):
         super().__init__(description)
 
     def num_nodes(self) -> int:
-        """ Returns the number of to-dos in task """
+        """ Returns the number of sub-components in task """
 
         return self.nodes.__len__()
 
-    def contains(self, t: Component) -> bool:
+    def contains(self, t: Doable) -> bool:
         """ Returns True if Component is in self.nodes
         
         Checks for Component with matching description
@@ -68,7 +68,7 @@ class Task(Component):
                 return True
         return False
 
-    def add_node(self, t: Component):
+    def add_node(self, t: Doable):
         """ Adds Component to self.nodes
 
         checks if Component is already in list
@@ -81,7 +81,7 @@ class Task(Component):
             print("ERROR: Node already exists in task")
 
     def remove_node(self, t: str):
-        """ Removes Component to self.nodes
+        """ Removes Component from self.nodes
 
         checks for Component with matching description
         and removes it if found.
