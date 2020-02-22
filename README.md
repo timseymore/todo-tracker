@@ -1,2 +1,2 @@
 # todo-tracker
- a simple todo app
+ todo-tracker is a simple task manager console app written in python.
