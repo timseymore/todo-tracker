@@ -1,6 +1,6 @@
 """ To-Do Tracker
  
-A simple to-do app
+A simple task manager console app
 
 - 2019 Tim Seymore
 """
