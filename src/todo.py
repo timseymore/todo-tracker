@@ -16,18 +16,17 @@ class Doable:
         """ Creates object instance """
 
         self.description = description
-        self.complete = False
+        self.nodes = []
 
     def get_description(self) -> str:
         """ Returns description string """
 
         return self.description 
 
-    def get_complete(self) -> bool:
-        return self.complete
+    def get_nodes(self) -> list:
+        """ Returns list of child nodes """
 
-    def display(self, indent_space: str):
-        pass
+        return self.nodes
 
     def __str__(self) -> str:
         """ Returns string for printing object """
@@ -36,23 +35,41 @@ class Doable:
 
 
 class ToDo(Doable):
-    """ A to-do entry in a given task """
+    """ A to-do entry in a given task
+    
+     - description: String ; description of Todo
+     - date: String ; date to complete Todo
+     = time: String ; time to complete Todo
+     """
 
-    def __init__(self, description: str):
-        """ Creates object instance """
+    def __init__(self, description: str, date="", time=""):
+        """ Constructor method """
 
-        super().__init__(description)
+        super().__init__(description) 
+        self.date = date
+        self.time = time
+    
+    # Getters
+    def get_date(self) -> str:
+        """ Getter method """
 
-    def complete(self):
-        """ Set complete to true if not already """
+        return self.date
 
-        if not self.complete:
-            self.complete = True
+    def get_time(self) -> str:
+        """ Getter method """
 
-    def display(self, indent_space: str):
-        """ Print to console """
+        return self.time
 
-        print(indent_space + self.description)
+    # Setters
+    def set_date(self, d: str):
+        """ Setter method """
+
+        self.date = d
+
+    def set_time(self, t: str):
+        """ Setter method """
+
+        self.time = t
 
 
 class Task(Doable):
@@ -62,16 +79,11 @@ class Task(Doable):
         """ Creates object instance """
 
         super().__init__(description)
-        self.subs = []
-        self.sub_doable_complete = False
 
-    def get_subs(self) -> list:
-        return self.subs
-
-    def num_subs(self) -> int:
+    def num_nodes(self) -> int:
         """ Returns the number of sub-components in task """
 
-        return self.subs.__len__()
+        return self.nodes.__len__()
 
     def contains(self, t: Doable) -> bool:
         """ Returns True if Component is in self.nodes
@@ -80,12 +92,12 @@ class Task(Doable):
         and returns True if found
         """
 
-        for sub in self.subs:
-            if t.get_description() == sub.get_description():
+        for node in self.nodes:
+            if t.get_description() == node.get_description():
                 return True
         return False
 
-    def add_doable(self, t: Doable):
+    def add_node(self, t: Doable):
         """ Adds Component to self.nodes
 
         checks if Component is already in list
@@ -93,27 +105,22 @@ class Task(Doable):
         """
 
         if not self.contains(t):
-            self.subs.append(t)
+            self.nodes.append(t)
         else:
             print("ERROR: Node already exists in task")
 
-    def remove_doable(self, t: str):
+    def remove_node(self, t: str):
         """ Removes Component from self.nodes
 
         checks for Component with matching description
         and removes it if found.
         """
 
-        for sub in self.subs:
-            if t == sub.get_description():
-                self.subs.remove(sub)
+        for node in self.nodes:
+            if t == node.get_description():
+                self.nodes.remove(node)
                 return
-        print("ERROR: Sub not found in task")
-
-    def display(self, indent_space: str):
-        print(indent_space + self.description)
-        for sub in self.subs:
-            sub.display(indent_space + "  ")
+        print("ERROR: Node not found in task")
 
 
 class ToDoTracker:
@@ -181,8 +188,7 @@ class ToDoTracker:
         elif inp == 'help':
             self.show_help_menu()
         elif inp == 'ls':
-            self.print_task(current, self.indent_level)
-            # current.display(self.indent_level)
+            self.print_task(current, "")
         elif inp == 'pwt':
             print(current)
         elif inp == 'ct':
@@ -190,16 +196,16 @@ class ToDoTracker:
             current = self.change_task(input('>>> '), current)
         elif inp == 'addtask':
             print("New Task:")
-            current.add_doable(Task(input('>>> ')))
+            current.add_node(Task(input('>>> ')))
         elif inp == 'addtodo':
             print("New To-do:")
-            current.add_doable(ToDo(input('>>> ')))
+            current.add_node(ToDo(input('>>> ')))
         elif inp == 'rmtask':
             print("Task to remove:")
-            current.remove_doable(input('>>> '))
+            current.remove_node(input('>>> '))
         elif inp == 'rmtodo':
             print("To-do to remove:")
-            current.remove_doable(input('>>> '))
+            current.remove_node(input('>>> '))
         return current
 
     def is_valid_command(self, c) -> bool:
@@ -220,7 +226,7 @@ class ToDoTracker:
         returns root task otherwise and prints Error message
         """
 
-        for t in current.subs:
+        for t in current.nodes:
             if task == t.get_description():
                 return t
         if task != self.root.get_description():
@@ -231,13 +237,13 @@ class ToDoTracker:
         """ Prints the description and to-dos for task """
 
         print(indent + str(task))
-        for entry in task.get_subs():
+        for entry in task.get_nodes():
             self.print_task(entry, indent + self.indent_level)
 
-    # def print_all(self):
-    #     """ Prints all tasks and to-dos """
-    #
-    #     self.print_task(self.root, "")
+    def print_all(self):
+        """ Prints all tasks and to-dos """
+
+        self.print_task(self.root, "")
 
     def save_to_disk(self):
         """ Save ToDoTracker object to file """
