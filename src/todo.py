@@ -35,12 +35,41 @@ class Doable:
 
 
 class ToDo(Doable):
-    """ A to-do entry in a given task """
+    """ A to-do entry in a given task
+    
+     - description: String ; description of Todo
+     - date: String ; date to complete Todo
+     = time: String ; time to complete Todo
+     """
 
-    def __init__(self, description: str):
-        """ Creates object instance """
+    def __init__(self, description: str, date="", time=""):
+        """ Constructor method """
 
         super().__init__(description) 
+        self.date = date
+        self.time = time
+    
+    # Getters
+    def get_date(self) -> str:
+        """ Getter method """
+
+        return self.date
+
+    def get_time(self) -> str:
+        """ Getter method """
+
+        return self.time
+
+    # Setters
+    def set_date(self, d: str):
+        """ Setter method """
+
+        self.date = d
+
+    def set_time(self, t: str):
+        """ Setter method """
+
+        self.time = t
 
 
 class Task(Doable):
