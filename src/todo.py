@@ -12,21 +12,25 @@ import sys
 class Doable:
     """ Composite Pattern object """
 
-    def __init__(self, description: str):
+    def __init__(self, description: str, subs=[]):
         """ Creates object instance """
 
         self.description = description
-        self.nodes = []
+        self.nodes = subs
 
     def get_description(self) -> str:
         """ Returns description string """
 
         return self.description 
 
-    def get_nodes(self) -> list:
+    def get_subs(self) -> list:
         """ Returns list of child nodes """
 
         return self.nodes
+
+    def display(self, indent_space: str):
+        """ Prints Doable to console """
+        pass
 
     def __str__(self) -> str:
         """ Returns string for printing object """
@@ -37,9 +41,9 @@ class Doable:
 class ToDo(Doable):
     """ A to-do entry in a given task
     
-     - description: String ; description of Todo
-     - date: String ; date to complete Todo
-     = time: String ; time to complete Todo
+     - description: String ; description of To-do
+     - date: String ; date to complete To-do
+     = time: String ; time to complete To-do
      """
 
     def __init__(self, description: str, date="", time=""):
@@ -71,6 +75,10 @@ class ToDo(Doable):
 
         self.time = t
 
+    def display(self, indent_space: str):
+        """ Prints To-do to console """
+        pass
+
 
 class Task(Doable):
     """ A task with a list of to-do entries """
@@ -79,11 +87,12 @@ class Task(Doable):
         """ Creates object instance """
 
         super().__init__(description)
+        self.subs = self.nodes
 
-    def num_nodes(self) -> int:
+    def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
 
-        return self.nodes.__len__()
+        return self.subs.__len__()
 
     def contains(self, t: Doable) -> bool:
         """ Returns True if Component is in self.nodes
@@ -92,35 +101,39 @@ class Task(Doable):
         and returns True if found
         """
 
-        for node in self.nodes:
-            if t.get_description() == node.get_description():
+        for sub in self.subs:
+            if t.get_description() == sub.get_description():
                 return True
         return False
 
-    def add_node(self, t: Doable):
-        """ Adds Component to self.nodes
+    def add_doable(self, t: Doable):
+        """ Adds Component to self.subs
 
         checks if Component is already in list
         and adds it if not found.
         """
 
         if not self.contains(t):
-            self.nodes.append(t)
+            self.subs.append(t)
         else:
-            print("ERROR: Node already exists in task")
+            print("ERROR: Doable already exists in task")
 
-    def remove_node(self, t: str):
-        """ Removes Component from self.nodes
+    def remove_doable(self, t: str):
+        """ Removes Component from self.subs
 
         checks for Component with matching description
         and removes it if found.
         """
 
-        for node in self.nodes:
-            if t == node.get_description():
-                self.nodes.remove(node)
+        for sub in self.subs:
+            if t == sub.get_description():
+                self.subs.remove(sub)
                 return
-        print("ERROR: Node not found in task")
+        print("ERROR: Doable not found in task")
+
+    def display(self, indent_space: str):
+        """ Prints Task and all subs to console """
+        pass
 
 
 class ToDoTracker:
@@ -196,16 +209,16 @@ class ToDoTracker:
             current = self.change_task(input('>>> '), current)
         elif inp == 'addtask':
             print("New Task:")
-            current.add_node(Task(input('>>> ')))
+            current.add_doable(Task(input('>>> ')))
         elif inp == 'addtodo':
             print("New To-do:")
-            current.add_node(ToDo(input('>>> ')))
+            current.add_doable(ToDo(input('>>> ')))
         elif inp == 'rmtask':
             print("Task to remove:")
-            current.remove_node(input('>>> '))
+            current.remove_doable(input('>>> '))
         elif inp == 'rmtodo':
             print("To-do to remove:")
-            current.remove_node(input('>>> '))
+            current.remove_doable(input('>>> '))
         return current
 
     def is_valid_command(self, c) -> bool:
@@ -226,7 +239,7 @@ class ToDoTracker:
         returns root task otherwise and prints Error message
         """
 
-        for t in current.nodes:
+        for t in current.subs:
             if task == t.get_description():
                 return t
         if task != self.root.get_description():
@@ -237,7 +250,7 @@ class ToDoTracker:
         """ Prints the description and to-dos for task """
 
         print(indent + str(task))
-        for entry in task.get_nodes():
+        for entry in task.get_subs():
             self.print_task(entry, indent + self.indent_level)
 
     def print_all(self):
