@@ -12,11 +12,11 @@ import sys
 class Doable:
     """ Composite Pattern object """
 
-    def __init__(self, description: str, subs=[]):
+    def __init__(self, description: str):
         """ Creates object instance """
 
         self.description = description
-        self.nodes = subs
+        self.nodes = []
 
     def get_description(self) -> str:
         """ Returns description string """
