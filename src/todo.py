@@ -28,6 +28,10 @@ class Doable:
 
         return self.nodes
 
+    def display(self, indent_space: str):
+        """ Prints Doable to console """
+        pass
+
     def __str__(self) -> str:
         """ Returns string for printing object """
 
@@ -37,9 +41,9 @@ class Doable:
 class ToDo(Doable):
     """ A to-do entry in a given task
     
-     - description: String ; description of Todo
-     - date: String ; date to complete Todo
-     = time: String ; time to complete Todo
+     - description: String ; description of To-do
+     - date: String ; date to complete To-do
+     = time: String ; time to complete To-do
      """
 
     def __init__(self, description: str, date="", time=""):
@@ -70,6 +74,10 @@ class ToDo(Doable):
         """ Setter method """
 
         self.time = t
+
+    def display(self, indent_space: str):
+        """ Prints To-do to console """
+        pass
 
 
 class Task(Doable):
@@ -121,6 +129,10 @@ class Task(Doable):
                 self.nodes.remove(node)
                 return
         print("ERROR: Node not found in task")
+
+    def display(self, indent_space: str):
+        """ Prints Task and all subs to console """
+        pass
 
 
 class ToDoTracker:
