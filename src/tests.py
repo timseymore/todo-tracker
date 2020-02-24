@@ -1,3 +1,4 @@
+# noinspection PyUnresolvedReferences
 from todo import ToDo, Task, ToDoTracker
 
 # Test Objects
@@ -29,18 +30,18 @@ t = Test()
 
 print("TEST: Task.add_node() - empty, add one")         
 TEST_TASK_1.add_doable(TEST_TODO_1)
-t.check_expect(TEST_TASK_1.nodes[0], TEST_TODO_1)
+t.check_expect(TEST_TASK_1.get_subs()[0], TEST_TODO_1)
 
 print("TEST: Task.add_node() - not empty, add new")         
 TEST_TASK_1.add_doable(TEST_TODO_2)
-t.check_expect(TEST_TASK_1.nodes[1], TEST_TODO_2)
+t.check_expect(TEST_TASK_1.get_subs()[1], TEST_TODO_2)
 
 print("TEST: Task.num_nodes() - 2") 
-t.check_expect(TEST_TASK_1.num_nodes(), 2)
+t.check_expect(TEST_TASK_1.num_subs(), 2)
 
 print("TEST: Task.add_node() - not empty, add existing")         
 TEST_TASK_1.add_doable(TEST_TODO_1)
-t.check_expect(TEST_TASK_1.num_nodes(), 2)
+t.check_expect(TEST_TASK_1.num_subs(), 2)
 
 print("TEST: Task.contains() - True") 
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
