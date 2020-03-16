@@ -14,18 +14,15 @@ class Doable:
 
     def __init__(self, description: str):
         """ Creates object instance """
-
         self.description = description
         self.nodes = []
 
     def get_description(self) -> str:
         """ Returns description string """
-
         return self.description 
 
     def get_subs(self) -> list:
         """ Returns list of child nodes """
-
         return self.nodes
 
     def display(self, indent_space: str):
@@ -34,7 +31,6 @@ class Doable:
 
     def __str__(self) -> str:
         """ Returns string for printing object """
-
         return self.description
 
 
@@ -56,23 +52,19 @@ class ToDo(Doable):
     # Getters
     def get_date(self) -> str:
         """ Getter method """
-
         return self.date
 
     def get_time(self) -> str:
         """ Getter method """
-
         return self.time
 
     # Setters
     def set_date(self, d: str):
         """ Setter method """
-
         self.date = d
 
     def set_time(self, t: str):
         """ Setter method """
-
         self.time = t
 
     def display(self, indent_space: str):
@@ -85,20 +77,18 @@ class Task(Doable):
 
     def __init__(self, description: str):
         """ Creates object instance """
-
         super().__init__(description)
         self.subs = self.nodes
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
-
         return self.subs.__len__()
 
     def contains(self, t: Doable) -> bool:
         """ Returns True if Component is in self.nodes
         
         Checks for Component with matching description
-        and returns True if found
+        and returns True if found, False otherwise
         """
 
         for sub in self.subs:
@@ -116,7 +106,7 @@ class Task(Doable):
         if not self.contains(t):
             self.subs.append(t)
         else:
-            print("ERROR: Doable already exists in task")
+            print("ERROR: Doable already exists in current task")
 
     def remove_doable(self, t: str):
         """ Removes Component from self.subs
@@ -270,7 +260,6 @@ class ToDoTracker:
 
     def load_from_disk(self):
         """ Load saved data from file """
-
         try:
             temp_file = open('data.obj', 'rb')
             self.root = pickle.load(temp_file)
@@ -279,9 +268,10 @@ class ToDoTracker:
             print("ERROR: FileNotFound")
 
     def exit_program(self):
+        """ Prompt to save and exit program """
         print("Save work? (y/n)")
         save = input('>>> ')
-        while save not in ['y', 'n']:
+        while save not in ['Yes', 'yes', 'Y', 'y', 'No', 'no',  'N', 'n']:
             save = input('>>> ')
         if save == 'y':
             self.save_to_disk()
