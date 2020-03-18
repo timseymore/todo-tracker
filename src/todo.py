@@ -14,12 +14,17 @@ class Doable:
 
     def __init__(self, description: str):
         """ Creates object instance """
+        self.complete = False
         self.description = description
         self.nodes = []
 
+    def get_complete(self) -> bool:
+        """ Getter method """
+        return self.complete
+
     def get_description(self) -> str:
         """ Returns description string """
-        return self.description 
+        return self.description
 
     def get_subs(self) -> list:
         """ Returns list of child nodes """
@@ -39,33 +44,47 @@ class ToDo(Doable):
     
      - description: String ; description of To-do
      - date: String ; date to complete To-do
-     = time: String ; time to complete To-do
+     - location: String ; time to complete To-do
      """
 
-    def __init__(self, description: str, date="", time=""):
+    def __init__(self, description: str, date="", location=""):
         """ Constructor method """
 
         super().__init__(description) 
         self.date = date
-        self.time = time
-    
+        self.location = location
+
     # Getters
     def get_date(self) -> str:
         """ Getter method """
         return self.date
 
-    def get_time(self) -> str:
+    def get_location(self) -> str:
         """ Getter method """
-        return self.time
+        return self.location
 
     # Setters
     def set_date(self, d: str):
         """ Setter method """
         self.date = d
 
-    def set_time(self, t: str):
+    def set_location(self, t: str):
         """ Setter method """
-        self.time = t
+        self.location = t
+
+    def complete(self):
+        """ Sets complete to True unless already True """
+        if not self.complete:
+            self.complete = True
+        else:
+            print("ERROR: Doable already complete")
+
+    def reset_complete(self):
+        """ Sets complete to False unless already False """
+        if self.complete:
+            self.complete = False
+        else:
+            print("ERROR: Doable not complete")
 
     def display(self, indent_space: str):
         """ Prints To-do to console """
@@ -73,11 +92,12 @@ class ToDo(Doable):
 
 
 class Task(Doable):
-    """ A task with a list of to-do entries """
+    """ A task with a list of Doables """
 
     def __init__(self, description: str):
         """ Creates object instance """
         super().__init__(description)
+        self.subDoablesComplete = False
         self.subs = self.nodes
 
     def num_subs(self) -> int:
