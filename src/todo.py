@@ -101,7 +101,7 @@ class ToDo(Doable):
     def display(self, indent_space: str):
         """ Prints To-do to console """
 
-        pass
+        return self.__str__()
 
 
 class Task(Doable):
@@ -158,7 +158,7 @@ class Task(Doable):
 
     def display(self, indent_space: str):
         """ Prints Task and all subs to console """
-        pass
+        return self.__str__()
 
 
 class ToDoTracker:
