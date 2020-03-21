@@ -261,8 +261,8 @@ class ToDoTracker:
     def change_task(self, task: str, current: Task) -> Task:
         """ Change current working task
 
-        Returns new task if it exists in current,
-        returns root task otherwise and prints Error message
+        RETURN: new task if it exists in current or
+                root task otherwise and prints Error message
         """
 
         for t in current.subs:
