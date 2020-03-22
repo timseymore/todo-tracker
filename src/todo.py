@@ -35,7 +35,6 @@ class Doable:
 
         return self.nodes
 
-    # TODO: make this method more robust
     def complete(self):
         """ sets complete to True """
 
@@ -89,22 +88,15 @@ class ToDo(Doable):
 
         self.location = t
 
-    # TODO: move these methods to Doable
-    # def complete(self):
-    #     """ Sets complete to True unless already True """
-    #
-    #     if not self.complete:
-    #         self.complete = True
-    #     else:
-    #         print("ERROR: Doable already complete")
-    #
-    # def reset_complete(self):
-    #     """ Sets complete to False unless already False """
-    #
-    #     if self.complete:
-    #         self.complete = False
-    #     else:
-    #         print("ERROR: Doable not complete")
+    # TODO: update this method to show date and location
+    def get_description(self) -> str:
+        return self.description
+
+    def complete(self):
+        """ Sets complete to True unless already True """
+
+        if not self.complete:
+            self.complete = True
 
     def display(self, indent_space: str):
         """ Prints To-do to console """
