@@ -17,7 +17,7 @@ class Doable:
 
         self.complete = False
         self.description = description
-        self.nodes = []
+        self.nodes = []  # TODO: remove this field
 
     def get_complete(self) -> bool:
         """ Getter method """
@@ -29,10 +29,17 @@ class Doable:
 
         return self.description
 
+    # TODO : remove this method
     def get_subs(self) -> list:
         """ Returns list of child nodes """
 
         return self.nodes
+
+    # TODO: make this method more robust
+    def complete(self):
+        """ sets complete to True """
+
+        self.complete = True
 
     def display(self, indent_space: str):
         """ Prints Doable to console """
@@ -82,21 +89,22 @@ class ToDo(Doable):
 
         self.location = t
 
-    def complete(self):
-        """ Sets complete to True unless already True """
-
-        if not self.complete:
-            self.complete = True
-        else:
-            print("ERROR: Doable already complete")
-
-    def reset_complete(self):
-        """ Sets complete to False unless already False """
-
-        if self.complete:
-            self.complete = False
-        else:
-            print("ERROR: Doable not complete")
+    # TODO: move these methods to Doable
+    # def complete(self):
+    #     """ Sets complete to True unless already True """
+    #
+    #     if not self.complete:
+    #         self.complete = True
+    #     else:
+    #         print("ERROR: Doable already complete")
+    #
+    # def reset_complete(self):
+    #     """ Sets complete to False unless already False """
+    #
+    #     if self.complete:
+    #         self.complete = False
+    #     else:
+    #         print("ERROR: Doable not complete")
 
     def display(self, indent_space: str):
         """ Prints To-do to console """
@@ -112,7 +120,7 @@ class Task(Doable):
 
         super().__init__(description)
         self.subDoablesComplete = False
-        self.subs = self.nodes
+        self.subs = self.nodes  # TODO: subs should only exist in this class
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
