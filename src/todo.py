@@ -35,7 +35,7 @@ class Doable:
 
         return self.nodes
 
-    def complete(self):
+    def set_complete(self):
         """ sets complete to True """
 
         self.complete = True
@@ -88,11 +88,16 @@ class ToDo(Doable):
 
         self.location = t
 
-    # TODO: update this method to show date and location
     def get_description(self) -> str:
-        return self.description
+        date_str = ""
+        loc_str = ""
+        if not self.date == "":
+            date_str = " on " + self.date
+        if not self.location == "":
+            loc_str = " @ " + self.location
+        return self.description + date_str + loc_str
 
-    def complete(self):
+    def set_complete(self):
         """ Sets complete to True unless already True """
 
         if not self.complete:
@@ -112,12 +117,12 @@ class Task(Doable):
 
         super().__init__(description)
         self.subDoablesComplete = False
-        self.subs = self.nodes  # TODO: subs should only exist in this class
+        # self.subs = self.nodes  # TODO: subs should only exist in this class
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
 
-        return self.subs.__len__()
+        return self.nodes.__len__()
 
     def contains(self, t: Doable) -> bool:
         """ Returns True if Component is in self.nodes
@@ -126,7 +131,7 @@ class Task(Doable):
         and returns True if found, False otherwise
         """
 
-        for sub in self.subs:
+        for sub in self.nodes:
             if t.get_description() == sub.get_description():
                 return True
         return False
@@ -139,7 +144,7 @@ class Task(Doable):
         """
 
         if not self.contains(t):
-            self.subs.append(t)
+            self.nodes.append(t)
         else:
             print("ERROR: Doable already exists in current task")
 
@@ -150,9 +155,9 @@ class Task(Doable):
         and removes it if found.
         """
 
-        for sub in self.subs:
+        for sub in self.nodes:
             if t == sub.get_description():
-                self.subs.remove(sub)
+                self.nodes.remove(sub)
                 return
         print("ERROR: Doable not found in task")
 
@@ -265,7 +270,7 @@ class ToDoTracker:
                 root task otherwise and prints Error message
         """
 
-        for t in current.subs:
+        for t in current.nodes:
             if task == t.get_description():
                 return t
         if task != self.root.get_description():

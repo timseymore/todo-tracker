@@ -26,21 +26,51 @@ class Test:
 
 t = Test()
 
-print("TEST: Task.add_node() - empty, add one")         
+
+# TO-DO TESTS
+
+print("TEST: ToDo.set_date()")
+TEST_TODO_1.set_date("01-02-1234")
+t.check_expect(TEST_TODO_1.get_date(), "01-02-1234")
+print()
+
+print("TEST: ToDo.set_location()")
+TEST_TODO_1.set_location("here")
+t.check_expect(TEST_TODO_1.get_location(), "here")
+print()
+
+print("TEST: ToDo.get_description()")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 01-02-1234 @ here")
+TEST_TODO_1.set_date("")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 @ here")
+TEST_TODO_1.set_location("")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1")
+print()
+
+print("TEST: ToDo.set_complete()")
+t.check_expect(TEST_TODO_1.get_complete(), False)
+TEST_TODO_1.set_complete()
+t.check_expect(TEST_TODO_1.get_complete(), True)
+print()
+
+
+# TASK TESTS
+
+print("TEST: Task.add_doable() - empty, add one")
 TEST_TASK_1.add_doable(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.get_subs()[0], TEST_TODO_1)
 print()
 
-print("TEST: Task.add_node() - not empty, add new")         
+print("TEST: Task.add_doable() - not empty, add new")
 TEST_TASK_1.add_doable(TEST_TODO_2)
 t.check_expect(TEST_TASK_1.get_subs()[1], TEST_TODO_2)
 print()
 
-print("TEST: Task.num_nodes() - 2") 
+print("TEST: Task.num_subs() - 2")
 t.check_expect(TEST_TASK_1.num_subs(), 2)
 print()
 
-print("TEST: Task.add_node() - not empty, add existing")         
+print("TEST: Task.add_doable() - not empty, add existing")
 TEST_TASK_1.add_doable(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.num_subs(), 2)
 print()
@@ -53,10 +83,12 @@ print("TEST: Task.contains() - False")
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
 print()
 
-print("TEST: Task.remove_node() - contains = true") 
+print("TEST: Task.remove_doable() - contains = true")
 TEST_TASK_1.remove_doable(TEST_TODO_1.get_description())
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 print()
+
+# TODOTRACKER TESTS
 
 print("TEST: ToDoTracker.print_all()")
 TEST_TRACKER.root.add_doable(TEST_TASK_1)
