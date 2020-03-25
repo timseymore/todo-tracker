@@ -56,6 +56,18 @@ print()
 
 # TASK TESTS
 
+print("TEST: Task.num_subs() - 2")
+t.check_expect(TEST_TASK_1.num_subs(), 2)
+print()
+
+print("TEST: Task.contains() - True")
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
+print()
+
+print("TEST: Task.contains() - False")
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
+print()
+
 print("TEST: Task.add_doable() - empty, add one")
 TEST_TASK_1.add_doable(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.get_subs()[0], TEST_TODO_1)
@@ -66,27 +78,16 @@ TEST_TASK_1.add_doable(TEST_TODO_2)
 t.check_expect(TEST_TASK_1.get_subs()[1], TEST_TODO_2)
 print()
 
-print("TEST: Task.num_subs() - 2")
-t.check_expect(TEST_TASK_1.num_subs(), 2)
-print()
-
 print("TEST: Task.add_doable() - not empty, add existing")
 TEST_TASK_1.add_doable(TEST_TODO_1)
 t.check_expect(TEST_TASK_1.num_subs(), 2)
-print()
-
-print("TEST: Task.contains() - True") 
-t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
-print()
-
-print("TEST: Task.contains() - False") 
-t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
 print()
 
 print("TEST: Task.remove_doable() - contains = true")
 TEST_TASK_1.remove_doable(TEST_TODO_1.get_description())
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 print()
+
 
 # TODOTRACKER TESTS
 

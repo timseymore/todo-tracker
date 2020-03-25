@@ -177,6 +177,7 @@ class ToDoTracker:
 
         self.root = Task("ToDo Tracker")
         self.indent_level = " " * 2
+        self.input_prompt = '>>> '
         self.commands = [
             'help',
             'exit',
@@ -212,9 +213,9 @@ class ToDoTracker:
         """
 
         print()
-        inpt = input('>>> ')
+        inpt = input(self.input_prompt)
         while not self.is_valid_command(inpt):
-            inpt = input('>>> ')
+            inpt = input(self.input_prompt)
         print()
         return inpt
 
@@ -237,19 +238,19 @@ class ToDoTracker:
             print(current)
         elif inp == 'ct':
             print("Change to:")
-            current = self.change_task(input('>>> '), current)
+            current = self.change_task(input(self.input_prompt), current)
         elif inp == 'addtask':
             print("New Task:")
-            current.add_doable(Task(input('>>> ')))
+            current.add_doable(Task(input(self.input_prompt)))
         elif inp == 'addtodo':
             print("New To-do:")
-            current.add_doable(ToDo(input('>>> ')))
+            current.add_doable(ToDo(input(self.input_prompt)))
         elif inp == 'rmtask':
             print("Task to remove:")
-            current.remove_doable(input('>>> '))
+            current.remove_doable(input(self.input_prompt))
         elif inp == 'rmtodo':
             print("To-do to remove:")
-            current.remove_doable(input('>>> '))
+            current.remove_doable(input(self.input_prompt))
         return current
 
     def is_valid_command(self, c) -> bool:
@@ -280,7 +281,7 @@ class ToDoTracker:
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
 
-        print(indent + str(task))
+        print(indent + task.get_description())
         for entry in task.get_subs():
             self.print_task(entry, indent + self.indent_level)
 
@@ -313,9 +314,9 @@ class ToDoTracker:
         """ Prompt to save and exit program """
 
         print("Save work? (y/n)")
-        save = input('>>> ')
+        save = input(self.input_prompt)
         while save not in ['Yes', 'yes', 'Y', 'y', 'No', 'no',  'N', 'n']:
-            save = input('>>> ')
+            save = input(self.input_prompt)
         if save == 'y':
             self.save_to_disk()
             print("Saved to disk")
