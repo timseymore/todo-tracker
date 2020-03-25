@@ -281,7 +281,7 @@ class ToDoTracker:
     def print_task(self, task, indent):
         """ Prints the description and to-dos for task """
 
-        print(indent + str(task))
+        print(indent + task.get_description())
         for entry in task.get_subs():
             self.print_task(entry, indent + self.indent_level)
 
