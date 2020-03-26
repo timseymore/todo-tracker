@@ -259,10 +259,7 @@ class ToDoTracker:
         RETURN: True if command is valid, False otherwise
         """
 
-        for command in self.commands:
-            if c == command:
-                return True
-        return False
+        return c in self.commands
 
     def change_task(self, task: str, current: Task) -> Task:
         """ Change current working task
