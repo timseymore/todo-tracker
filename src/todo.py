@@ -310,11 +310,13 @@ class ToDoTracker:
     def exit_program(self):
         """ Prompt to save and exit program """
 
+        yes_lst = ['Yes', 'yes', 'Y', 'y']
+        no_lst = ['No', 'no',  'N', 'n']
         print("Save work? (y/n)")
         save = input(self.input_prompt)
-        while save not in ['Yes', 'yes', 'Y', 'y', 'No', 'no',  'N', 'n']:
+        while save not in yes_lst.copy() + no_lst:
             save = input(self.input_prompt)
-        if save == 'y':
+        if save in yes_lst:
             self.save_to_disk()
             print("Saved to disk")
         print("Exiting program")
