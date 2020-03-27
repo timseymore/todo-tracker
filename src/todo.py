@@ -237,19 +237,35 @@ class ToDoTracker:
             print(current)
         elif inp == 'ct':
             print("Change to:")
-            current = self.change_task(input(self.input_prompt), current)
+            try:
+                current = self.change_task(input(self.input_prompt), current)
+            except AttributeError:
+                print("ERROR: ToDo object has no subs : Changing to ToDoTracker")
+                current = self.root
         elif inp == 'addtask':
             print("New Task:")
-            current.add_doable(Task(input(self.input_prompt)))
+            try:
+                current.add_doable(Task(input(self.input_prompt)))
+            except AttributeError:
+                print("ERROR: ToDo object has no subs")
         elif inp == 'addtodo':
             print("New To-do:")
-            current.add_doable(ToDo(input(self.input_prompt)))
+            try:
+                current.add_doable(ToDo(input(self.input_prompt)))
+            except AttributeError:
+                print("ERROR: ToDo object has no subs")
         elif inp == 'rmtask':
             print("Task to remove:")
-            current.remove_doable(input(self.input_prompt))
+            try:
+                current.remove_doable(input(self.input_prompt))
+            except AttributeError:
+                print("ERROR: ToDo object has no subs")
         elif inp == 'rmtodo':
             print("To-do to remove:")
-            current.remove_doable(input(self.input_prompt))
+            try:
+                current.remove_doable(input(self.input_prompt))
+            except AttributeError:
+                print("ERROR: ToDo object has no subs")
         return current
 
     def is_valid_command(self, c) -> bool:
