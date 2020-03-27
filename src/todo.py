@@ -17,7 +17,6 @@ class Doable:
 
         self.complete = False
         self.description = description
-        self.nodes = []  # TODO: remove this field
 
     def get_complete(self) -> bool:
         """ Getter method """
@@ -28,12 +27,6 @@ class Doable:
         """ Returns description string """
 
         return self.description
-
-    # TODO : remove this method
-    def get_subs(self) -> list:
-        """ Returns list of child nodes """
-
-        return self.nodes
 
     def set_complete(self):
         """ sets complete to True """
@@ -106,7 +99,7 @@ class ToDo(Doable):
     def display(self, indent_space: str):
         """ Prints To-do to console """
 
-        return self.__str__()
+        print(indent_space + self.get_description())
 
 
 class Task(Doable):
@@ -117,7 +110,10 @@ class Task(Doable):
 
         super().__init__(description)
         self.subDoablesComplete = False
-        # self.subs = self.nodes  # TODO: subs should only exist in this class
+        self.nodes = []
+
+    def get_subs(self):
+        return self.nodes
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
@@ -163,7 +159,10 @@ class Task(Doable):
 
     def display(self, indent_space: str):
         """ Prints Task and all subs to console """
-        return self.__str__()
+
+        print(indent_space + self.description)
+        for sub in self.nodes:
+            sub.display(indent_space + "  ")
 
 
 class ToDoTracker:
@@ -233,7 +232,7 @@ class ToDoTracker:
         elif inp == 'help':
             self.show_help_menu()
         elif inp == 'ls':
-            self.print_task(current, "")
+            current.display("")
         elif inp == 'pwt':
             print(current)
         elif inp == 'ct':
@@ -268,24 +267,12 @@ class ToDoTracker:
                 root task otherwise and prints Error message
         """
 
-        for t in current.nodes:
+        for t in current.get_subs():
             if task == t.get_description():
                 return t
         if task != self.root.get_description():
             print("ERROR: task not found in current working task - changing to 'ToDo Tracker'")
         return self.root
-
-    def print_task(self, task, indent):
-        """ Prints the description and to-dos for task """
-
-        print(indent + task.get_description())
-        for entry in task.get_subs():
-            self.print_task(entry, indent + self.indent_level)
-
-    def print_all(self):
-        """ Prints all tasks and to-dos """
-
-        self.print_task(self.root, "")
 
     def save_to_disk(self):
         """ Save ToDoTracker object to file """
