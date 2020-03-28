@@ -87,8 +87,3 @@ print("TEST: Task.contains() - False, not empty")
 TEST_TASK_1.remove_doable(TEST_TODO_1.get_description())
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
 print()
-
-
-# TODOTRACKER TESTS
-
-# TODO: write tests for ToDoTracker class
