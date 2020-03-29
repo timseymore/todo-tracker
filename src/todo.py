@@ -213,7 +213,7 @@ class ToDoTracker:
 
         print()
         inpt = input(self.input_prompt)
-        while not self.is_valid_command(inpt):
+        while inpt not in self.commands:
             inpt = input(self.input_prompt)
         print()
         return inpt
@@ -267,14 +267,6 @@ class ToDoTracker:
             except AttributeError:
                 print("ERROR: ToDo object has no subs")
         return current
-
-    def is_valid_command(self, c) -> bool:
-        """ Check if command is in list of commands
-
-        RETURN: True if command is valid, False otherwise
-        """
-
-        return c in self.commands
 
     def change_task(self, task: str, current: Task) -> Task:
         """ Change current working task
