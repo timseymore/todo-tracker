@@ -120,7 +120,22 @@ class Task(Doable):
         self.indent_level = " " * 2
 
     def get_subs(self):
+        """ Getter method """
+
         return self.nodes
+
+    def set_complete(self):
+        """ Set self as complete if all subs are complete
+
+        check that all subs are complete and set complete to True if so,
+        otherwise print error message and exit function
+        """
+
+        for sub in self.nodes:
+            if not sub.get_complete():
+                print("ERROR: not all todos complete")
+                return
+        self.complete = True
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
