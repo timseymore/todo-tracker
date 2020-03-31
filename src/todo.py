@@ -34,7 +34,10 @@ class Doable:
         self.complete = True
 
     def display(self, indent_space: str):
-        """ Prints Doable to console """
+        """ Prints Doable to console
+
+        - indent_space: starting indent space
+        """
 
         pass
 
@@ -97,7 +100,10 @@ class ToDo(Doable):
             self.complete = True
 
     def display(self, indent_space: str):
-        """ Prints To-do to console """
+        """ Prints To-do to console
+
+        - indent_space: starting indent space
+        """
 
         print(indent_space + self.get_description())
 
@@ -111,6 +117,7 @@ class Task(Doable):
         super().__init__(description)
         self.subDoablesComplete = False
         self.nodes = []
+        self.indent_level = " " * 2
 
     def get_subs(self):
         return self.nodes
@@ -158,11 +165,14 @@ class Task(Doable):
         print("ERROR: Doable not found in task")
 
     def display(self, indent_space: str):
-        """ Prints Task and all subs to console """
+        """ Prints Task and all subs to console
+
+        - indent_space: starting indent space
+        """
 
         print(indent_space + self.description)
         for sub in self.nodes:
-            sub.display(indent_space + "  ")
+            sub.display(indent_space + self.indent_level)
 
 
 class ToDoTracker:
@@ -175,7 +185,7 @@ class ToDoTracker:
         """ Creates object instance """
 
         self.root = Task("ToDo Tracker")
-        self.indent_level = " " * 2
+        # self.indent_level = " " * 2
         self.input_prompt = '>>> '
         self.commands = [
             'help',
