@@ -17,7 +17,8 @@ TEST_TODO_5 = ToDo("ToDo 5")
 
 class Test:
     @staticmethod
-    def check_expect(actual, expected):
+    def check_expect(actual, expected, message=""):
+        print("Test: " + message)
         if actual == expected:
             print("Test Passed")
         else:
@@ -29,61 +30,41 @@ t = Test()
 
 # TO-DO TESTS
 
-print("TEST: ToDo.set_date()")
 TEST_TODO_1.set_date("01-02-1234")
-t.check_expect(TEST_TODO_1.get_date(), "01-02-1234")
-print()
+t.check_expect(TEST_TODO_1.get_date(), "01-02-1234", "ToDo.set_date('01-02-1234')")
 
-print("TEST: ToDo.set_location()")
 TEST_TODO_1.set_location("here")
-t.check_expect(TEST_TODO_1.get_location(), "here")
-print()
+t.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here')")
 
-print("TEST: ToDo.get_description()")
-t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 01-02-1234 @ here")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 01-02-1234 @ here", "ToDo.get_description()")
+
 TEST_TODO_1.set_date("")
-t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 @ here")
-TEST_TODO_1.set_location("")
-t.check_expect(TEST_TODO_1.get_description(), "ToDo 1")
-print()
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 @ here", "ToDo.set_date(''), ToDo.get_description()")
 
-print("TEST: ToDo.set_complete()")
-t.check_expect(TEST_TODO_1.get_complete(), False)
+TEST_TODO_1.set_location("")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1", "ToDo.set_location(''), ToDo.get_description()")
+
+t.check_expect(TEST_TODO_1.get_complete(), False, "ToDo.get_complete() -> False")
 TEST_TODO_1.set_complete()
-t.check_expect(TEST_TODO_1.get_complete(), True)
-print()
+t.check_expect(TEST_TODO_1.get_complete(), True, "ToDo.set_complete(), ToDo.get_complete -> True")
 
 
 # TASK TESTS
 
-print("TEST: Task.num_subs() - 0")
-t.check_expect(TEST_TASK_1.num_subs(), 0)
-print()
+t.check_expect(TEST_TASK_1.num_subs(), 0, "Task.num_subs() -> 0")
 
-print("TEST: Task.contains() - False, empty")
-t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False)
-print()
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False, "Task.contains() - False, empty")
 
-print("TEST: Task.add_doable() - empty, add one")
 TEST_TASK_1.add_doable(TEST_TODO_1)
-t.check_expect(TEST_TASK_1.get_subs()[0], TEST_TODO_1)
-print()
+t.check_expect(TEST_TASK_1.get_subs()[0], TEST_TODO_1, "Task.add_doable() - empty, add one")
 
-print("TEST: Task.add_doable() - not empty, add new")
 TEST_TASK_1.add_doable(TEST_TODO_2)
-t.check_expect(TEST_TASK_1.get_subs()[1], TEST_TODO_2)
-print()
+t.check_expect(TEST_TASK_1.get_subs()[1], TEST_TODO_2, "Task.add_doable() - not empty, add new")
 
-print("TEST: Task.add_doable() - ERROR, not empty, add existing")
-print("TEST: Task.num_subs() - 2")
-print("TEST: Task.contains() - True")
 TEST_TASK_1.add_doable(TEST_TODO_1)
-t.check_expect(TEST_TASK_1.num_subs(), 2)
-t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True)
-print()
+t.check_expect(TEST_TASK_1.num_subs(), 2, "Task.add_doable() -> ERROR: existing, Task.num_subs() -> 2")
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), True, "Task.contains() -> True")
 
-print("TEST: Task.remove_doable() - contains = true")
-print("TEST: Task.contains() - False, not empty")
 TEST_TASK_1.remove_doable(TEST_TODO_1.get_description())
-t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False)
-print()
+t.check_expect(TEST_TASK_1.contains(TEST_TODO_1), False,
+               "Task.remove_doable() : contains = true, Task.contains() -> False, not empty")
