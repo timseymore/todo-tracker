@@ -200,7 +200,6 @@ class ToDoTracker:
         """ Creates object instance """
 
         self.root = Task("ToDo Tracker")
-        # self.indent_level = " " * 2
         self.input_prompt = '>>> '
         self.commands = [
             'help',
@@ -332,14 +331,16 @@ class ToDoTracker:
 
         valid_lst = ['Yes', 'yes', 'Y', 'y', 'No', 'no',  'N', 'n']
         yes_lst = valid_lst[:4]
+        choice = ""
 
-        print("Save work? (y/n)")
-        choice = input(self.input_prompt)
         while choice not in valid_lst:
+            print("Save changes before exiting? (y/n)")
             choice = input(self.input_prompt)
         if choice in yes_lst:
             self.save_to_disk()
-            print("Saved to disk")
+            print("Changes saved")
+        else:
+            print("Changes not saved")
         print("Exiting program")
 
     @staticmethod
