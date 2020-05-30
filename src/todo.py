@@ -14,23 +14,19 @@ class Doable:
 
     def __init__(self, description: str):
         """ Creates object instance """
-
         self.complete = False
         self.description = description
 
     def get_complete(self) -> bool:
         """ Getter method """
-
         return self.complete
 
     def get_description(self) -> str:
         """ Returns description string """
-
         return self.description
 
     def set_complete(self):
         """ sets complete to True """
-
         self.complete = True
 
     def display(self, indent_space: str):
@@ -38,12 +34,10 @@ class Doable:
 
         - indent_space: starting indent space
         """
-
         pass
 
     def __str__(self) -> str:
         """ Returns string for printing object """
-
         return self.description
 
 
@@ -54,7 +48,6 @@ class ToDo(Doable):
      - date: String ; date to complete To-do
      - location: String ; time to complete To-do
      """
-
     def __init__(self, description: str, date="", location=""):
         """ Constructor method """
 
@@ -65,23 +58,19 @@ class ToDo(Doable):
     # Getters
     def get_date(self) -> str:
         """ Getter method """
-
         return self.date
 
     def get_location(self) -> str:
         """ Getter method """
-
         return self.location
 
     # Setters
     def set_date(self, d: str):
         """ Setter method """
-
         self.date = d
 
     def set_location(self, t: str):
         """ Setter method """
-
         self.location = t
 
     def get_description(self) -> str:
@@ -95,7 +84,6 @@ class ToDo(Doable):
 
     def set_complete(self):
         """ Sets complete to True unless already True """
-
         if not self.complete:
             self.complete = True
 
@@ -104,7 +92,6 @@ class ToDo(Doable):
 
         - indent_space: starting indent space
         """
-
         print(indent_space + self.get_description())
 
 
@@ -113,7 +100,6 @@ class Task(Doable):
 
     def __init__(self, description: str):
         """ Creates object instance """
-
         super().__init__(description)
         self.subDoablesComplete = False
         self.nodes = []
@@ -121,7 +107,6 @@ class Task(Doable):
 
     def get_subs(self):
         """ Getter method """
-
         return self.nodes
 
     def set_complete(self):
@@ -130,7 +115,6 @@ class Task(Doable):
         check that all subs are complete and set complete to True if so,
         otherwise print error message and exit function
         """
-
         for sub in self.nodes:
             if not sub.get_complete():
                 print("ERROR: not all todos complete")
@@ -139,7 +123,6 @@ class Task(Doable):
 
     def num_subs(self) -> int:
         """ Returns the number of sub-components in task """
-
         return self.nodes.__len__()
 
     def contains(self, t: Doable) -> bool:
@@ -148,7 +131,6 @@ class Task(Doable):
         Checks for Component with matching description
         and returns True if found, False otherwise
         """
-
         for sub in self.nodes:
             if t.get_description() == sub.get_description():
                 return True
@@ -160,7 +142,6 @@ class Task(Doable):
         checks if Component is already in list
         and adds it if not found.
         """
-
         if not self.contains(t):
             self.nodes.append(t)
         else:
@@ -172,7 +153,6 @@ class Task(Doable):
         checks for Component with matching description
         and removes it if found.
         """
-
         for sub in self.nodes:
             if t == sub.get_description():
                 self.nodes.remove(sub)
@@ -184,7 +164,6 @@ class Task(Doable):
 
         - indent_space: starting indent space
         """
-
         print(indent_space + self.description)
         for sub in self.nodes:
             sub.display(indent_space + self.indent_level)
@@ -198,7 +177,6 @@ class ToDoTracker:
 
     def __init__(self):
         """ Creates object instance """
-
         self.root = Task("ToDo Tracker")
         self.input_prompt = '>>> '
         self.commands = [
@@ -215,15 +193,12 @@ class ToDoTracker:
 
     def main(self):
         """ Runs main ui """
-
         self.load_from_disk()
         current_task = self.root
-
         print()
         print("  ToDo Tracker")
         print("-----------------")
         print("type 'help' for help")
-
         while True:
             choice = self.get_input()
             current_task = self.handle_input(choice, current_task)
@@ -234,7 +209,6 @@ class ToDoTracker:
         Continue prompting for input until valid command is entered
         RETURN: valid input
         """
-
         print()
         inpt = input(self.input_prompt)
         while inpt not in self.commands:
@@ -249,7 +223,6 @@ class ToDoTracker:
          - current: current task
          Return: new current task
          """
-
         if inp == 'exit':
             self.exit_program()
             sys.exit()
@@ -298,7 +271,6 @@ class ToDoTracker:
         RETURN: new task if it exists in current or
                 root task otherwise and prints Error message
         """
-
         for t in current.get_subs():
             if task == t.get_description():
                 return t
@@ -308,7 +280,6 @@ class ToDoTracker:
 
     def save_to_disk(self):
         """ Save ToDoTracker object to file """
-
         try:
             temp_file = open("data.obj", 'wb')
             pickle.dump(self.root, temp_file)
@@ -318,7 +289,6 @@ class ToDoTracker:
 
     def load_from_disk(self):
         """ Load saved data from file """
-
         try:
             temp_file = open('data.obj', 'rb')
             self.root = pickle.load(temp_file)
@@ -328,11 +298,9 @@ class ToDoTracker:
 
     def exit_program(self):
         """ Prompt to save and exit program """
-
         valid_lst = ['Yes', 'yes', 'Y', 'y', 'No', 'no',  'N', 'n']
         yes_lst = valid_lst[:4]
         choice = ""
-
         while choice not in valid_lst:
             print("Save changes before exiting? (y/n)")
             choice = input(self.input_prompt)
@@ -346,7 +314,6 @@ class ToDoTracker:
     @staticmethod
     def show_help_menu():
         """ Print help menu to console """
-
         print("                   COMMANDS")
         print("=================================================")
         print(" | exit    : Exit program")
