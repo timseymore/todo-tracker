@@ -30,17 +30,24 @@ t = Test()
 
 # TO-DO TESTS
 
+# set_date() tests
 TEST_TODO_1.set_date("01-02-1234")
-t.check_expect(TEST_TODO_1.get_date(), "01-02-1234", "ToDo.set_date('01-02-1234')")
+t.check_expect(TEST_TODO_1.get_date(), "01-02-1234", "ToDo.set_date('01-02-1234') - valid")
 
 TEST_TODO_2.set_date("12-31-9999")
-t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-9999')")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-9999') - valid")
+
+TEST_TODO_2.set_date("00-31-9999")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') month out of bounds - under")
 
 TEST_TODO_2.set_date("13-31-9999")
-t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('13-31-9999') month out of bounds")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('13-31-9999') month out of bounds - over")
+
+TEST_TODO_2.set_date("12-00-9999")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - under")
 
 TEST_TODO_2.set_date("12-32-9999")
-t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - over")
 
 TEST_TODO_2.set_date("12-31-09999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-09999') year length too long")
@@ -48,6 +55,14 @@ t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-09999
 TEST_TODO_2.set_date("1-31-9999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') month length too short")
 
+TEST_TODO_2.set_date("1-1-9999")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') day length too short")
+
+TEST_TODO_2.set_date("1-31-999")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') year length too short")
+
+
+# set_location() tests
 TEST_TODO_1.set_location("here")
 t.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here')")
 
