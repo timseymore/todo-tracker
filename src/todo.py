@@ -166,7 +166,10 @@ class Task(Doable):
         """
         print(indent_space + self.description)
         for sub in self.nodes:
-            sub.display(indent_space + self.indent_level)
+            try:
+                sub.display(indent_space + self.indent_level)
+            except AttributeError:
+                print("ERROR: " + self.description + " has no attribute 'indent_space'")
 
 
 class ToDoTracker:
