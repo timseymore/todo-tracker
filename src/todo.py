@@ -16,6 +16,7 @@ class Doable:
         """ Creates object instance """
         self.complete = False
         self.description = description
+        self.indent_level = " " * 2
 
     def get_complete(self) -> bool:
         """ Getter method """
@@ -103,7 +104,6 @@ class Task(Doable):
         super().__init__(description)
         self.subDoablesComplete = False
         self.nodes = []
-        self.indent_level = " " * 2
 
     def get_subs(self):
         """ Getter method """
@@ -167,9 +167,9 @@ class Task(Doable):
         print(indent_space + self.description)
         for sub in self.nodes:
             try:
-                sub.display(indent_space + self.indent_level)
+                sub.display(indent_space + sub.indent_level)
             except AttributeError:
-                print("ERROR: " + self.description + " has no attribute 'indent_space'")
+                print("ERROR: " + sub.description + " has no attribute 'indent_level'")
 
 
 class ToDoTracker:
