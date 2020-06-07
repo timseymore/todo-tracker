@@ -31,6 +31,15 @@ t = Test()
 # TO-DO TESTS
 
 # set_date() tests
+# 
+# Notes on set_date() tests:
+# - a date should follow the format "MM-DD-YYYY" ; any other format should fail to change date
+# - the "-" are unimport, meaning that they may be replaced with any charactor ie: "12,15,1567" is considered valid
+# - dates with the above circumstances should have "-" as the final result for dividers ie: the above would be changed to "12-15-1567" in set_date()
+# - the Month must be a 2-digit integer (01,12)
+# - the Day must be a 2-digit integer (01,31)
+# - the Year must be a 4-digit integer (0001,9999) ; no year zero ; app is meant to be used with modern day dates only
+
 TEST_TODO_1.set_date("01-02-1234")
 t.check_expect(TEST_TODO_1.get_date(), "01-02-1234", "ToDo.set_date('01-02-1234') - valid")
 
@@ -60,6 +69,9 @@ t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999')
 
 TEST_TODO_2.set_date("1-31-999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') year length too short")
+
+TEST_TODO_1.set_date("01,02,1234")
+t.check_expect(TEST_TODO_1.get_date(), "01-02-1234", "ToDo.set_date('01,02,1234') - valid")
 
 
 # set_location() tests
