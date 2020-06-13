@@ -98,7 +98,6 @@ t.check_expect(TEST_TODO_1.get_complete(), True, "ToDo.set_complete(), ToDo.get_
 
 
 # TASK TESTS
-
 t.check_expect(TEST_TASK_1.num_subs(), 0, "Task.num_subs() -> 0")
 
 t.check_expect(TEST_TASK_1.contains(TEST_TODO_3), False, "Task.contains() - False, empty")
