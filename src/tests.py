@@ -23,6 +23,7 @@ class Test:
             print("Test Passed")
         else:
             print("Test Failed: Expected: " + str(expected) + " Actual: " + str(actual))
+        print()
 
 
 t = Test()
@@ -45,7 +46,7 @@ TEST_TODO_1.set_date("01-01-0001")
 t.check_expect(TEST_TODO_1.get_date(), "01-01-0001", "ToDo.set_date('01-02-1234') - valid lower bounds")
 
 TEST_TODO_1.set_date("06-15-5432")
-t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid middle")
+t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid middle / change previous")
 
 TEST_TODO_2.set_date("12-31-9999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-9999') - valid upper bounds")
@@ -80,9 +81,12 @@ t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999')
 TEST_TODO_1.set_date("06,15,5432")
 t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid with comma divider")
 
+TEST_TODO_2.set_date(101)
+t.check_expect(TEST_TODO_1.get_date(), "12-31-9999", "ToDo.set_date(101) - invalid argument type given")
+
 # set_location() tests
 TEST_TODO_1.set_location("here")
-t.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here')")
+t.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here') - valid")
 
 t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 01-02-1234 @ here", "ToDo.get_description()")
 
