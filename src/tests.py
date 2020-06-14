@@ -19,9 +19,9 @@ class Test:
     @staticmethod
     def check_expect(actual, expected, message=""):
         if actual != expected:
+            print()
             print("Test: " + message)
             print("Failed: Expected: " + str(expected) + " Actual: " + str(actual))
-            print()
 
 
 t = Test()
@@ -29,7 +29,7 @@ t = Test()
 
 # TO-DO TESTS
 
-# set_date() tests
+# get_date() / set_date() tests
 # 
 # Notes on set_date() tests:
 # - a date should follow the format "MM-DD-YYYY" ; any other format should fail to change date

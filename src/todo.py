@@ -68,8 +68,17 @@ class ToDo(Doable):
     # Setters
     def set_date(self, d: str):
         """ Setter method """
+        def format_date(d1):
+            digits = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
+
+            def aux(d2: str, result: str, counter: int):
+                # TODO: tail recursive solution without mutation
+                return d2  # res
+
+            return aux(d1, "", 0)
+
         if type(d) == str:
-            self.date = d
+            self.date = format_date(d)
 
     def set_location(self, t: str):
         """ Setter method """
