@@ -68,7 +68,8 @@ class ToDo(Doable):
     # Setters
     def set_date(self, d: str):
         """ Setter method """
-        self.date = d
+        if type(d) == str:
+            self.date = d
 
     def set_location(self, t: str):
         """ Setter method """

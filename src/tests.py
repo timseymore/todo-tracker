@@ -42,6 +42,9 @@ t = Test()
 # - the Day must be a 2-digit integer (01 - 31)
 # - the Year must be a 4-digit integer (0001 - 9999) ; no year zero ; app is meant to be used with modern day dates only
 
+TEST_TODO_1.set_date(101)
+t.check_expect(TEST_TODO_1.get_date(), "", "ToDo.set_date(101) - invalid argument type given")
+
 TEST_TODO_1.set_date("01-01-0001")
 t.check_expect(TEST_TODO_1.get_date(), "01-01-0001", "ToDo.set_date('01-02-1234') - valid lower bounds")
 
@@ -81,8 +84,7 @@ t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999')
 TEST_TODO_1.set_date("06,15,5432")
 t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid with comma divider")
 
-TEST_TODO_2.set_date(101)
-t.check_expect(TEST_TODO_1.get_date(), "12-31-9999", "ToDo.set_date(101) - invalid argument type given")
+
 
 # set_location() tests
 TEST_TODO_1.set_location("here")
