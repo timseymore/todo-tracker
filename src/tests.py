@@ -18,10 +18,12 @@ TEST_TODO_5 = ToDo("ToDo 5")
 class Test:
     @staticmethod
     def check_expect(actual, expected, message=""):
+        print()
+        print("Test: " + message + ": ", end="")
         if actual != expected:
-            print()
-            print("Test: " + message)
-            print("Failed: Expected: " + str(expected) + " Actual: " + str(actual))
+            print("FAILED: Expected: " + str(expected) + " Actual: " + str(actual))
+        else:
+            print("PASSED")
 
 
 t = Test()
@@ -89,7 +91,7 @@ t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432'
 TEST_TODO_1.set_location("here")
 t.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here') - valid")
 
-t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 01-02-1234 @ here", "ToDo.get_description()")
+t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 06-15-5432 @ here", "ToDo.get_description()")
 
 TEST_TODO_1.set_date("")
 t.check_expect(TEST_TODO_1.get_description(), "ToDo 1 @ here", "ToDo.set_date(''), ToDo.get_description()")
