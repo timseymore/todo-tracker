@@ -63,7 +63,7 @@ TEST_TODO_2.set_date("13-31-9999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('13-31-9999') month out of bounds - over")
 
 TEST_TODO_2.set_date("12-00-9999")
-t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - under")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-00-9999') day out of bounds - under")
 
 TEST_TODO_2.set_date("12-32-9999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - over")
@@ -81,7 +81,7 @@ TEST_TODO_2.set_date("1-31-9999")
 t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') month length too short")
 
 TEST_TODO_2.set_date("1-1-9999")
-t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') day length too short")
+t.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-1-9999') day length too short")
 
 TEST_TODO_1.set_date("06,15,5432")
 t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid with comma divider")
