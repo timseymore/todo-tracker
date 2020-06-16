@@ -48,7 +48,7 @@ TEST_TODO_1.set_date(101)
 t.check_expect(TEST_TODO_1.get_date(), "", "ToDo.set_date(101) - invalid argument type given")
 
 TEST_TODO_1.set_date("01-01-0001")
-t.check_expect(TEST_TODO_1.get_date(), "01-01-0001", "ToDo.set_date('01-02-1234') ToDo.get_date() - valid lower bounds")
+t.check_expect(TEST_TODO_1.get_date(), "01-01-0001", "ToDo.set_date('01-01-0001') ToDo.get_date() - valid lower bounds")
 
 TEST_TODO_1.set_date("06-15-5432")
 t.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid middle / change previous")
