@@ -74,12 +74,14 @@ class ToDo(Doable):
             def aux(d2: str, result: str, counter: int):
                 # TODO: tail recursive solution without mutation
                 if d2 == "":
-                    return result
+                    if counter == 10:
+                        return result
+                    return self.date
+                elif counter == 2 or counter == 5:  # separator, change to '-'
+                    return aux(d2[1::], result + "-", counter + 1)
                 else:
-                    if counter == 2 or counter == 5:
-                        return aux(d2[1::], result + "-", counter + 1)
-                    else:
-                        return aux(d2[1::], result + d2[0], counter + 1)
+                    # check counter value as index to assert correct digit
+                    return aux(d2[1::], result + d2[0], counter + 1)
 
             return aux(d1, "", 0)
 
