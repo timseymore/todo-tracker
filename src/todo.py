@@ -66,27 +66,24 @@ class ToDo(Doable):
         return self.location
 
     # Setters
+    # TODO
     def set_date(self, d: str):
         """ Setter method """
-        def format_date(d1):
+        def format_date(d1: str, result: str, counter: int):
             digits = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
 
-            def aux(d2: str, result: str, counter: int):
-                # TODO: tail recursive solution without mutation
-                if d2 == "":
-                    if counter == 10:
-                        return result
-                    return self.date
-                elif counter == 2 or counter == 5:  # separator, change to '-'
-                    return aux(d2[1::], result + "-", counter + 1)
-                else:
-                    # check counter value as index to assert correct digit
-                    return aux(d2[1::], result + d2[0], counter + 1)
-
-            return aux(d1, "", 0)
+            if d1 == "":
+                if counter == 10:
+                    return result
+                return self.date
+            elif counter == 2 or counter == 5:  # separator, change to '-'
+                return format_date(d1[1::], result + "-", counter + 1)
+            else:
+                # check counter value as index to assert correct digit
+                return format_date(d1[1::], result + d1[0], counter + 1)
 
         if type(d) == str:
-            self.date = format_date(d)
+            self.date = format_date(d, "", 0)
 
     def set_location(self, t: str):
         """ Setter method """
