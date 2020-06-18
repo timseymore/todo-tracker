@@ -71,7 +71,6 @@ class ToDo(Doable):
         """ Setter method """
         def format_date(d1: str, result: str, counter: int):
             digits = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
-
             if d1 == "":
                 if counter == 10:
                     return result
@@ -87,7 +86,8 @@ class ToDo(Doable):
 
     def set_location(self, t: str):
         """ Setter method """
-        self.location = t
+        if type(t) == str:
+            self.location = t
 
     def get_description(self) -> str:
         date_str = ""
