@@ -264,9 +264,13 @@ class ToDoTracker:
             except AttributeError:
                 print("ERROR: ToDo object has no subs")
         elif inp == 'addtodo':
+            # TODO: implement date and location options
             print("New To-do:")
+            new = ToDo(input(self.input_prompt))
+            date = ""
+            location = ""
             try:
-                current.add_doable(ToDo(input(self.input_prompt)))
+                current.add_doable(new, date, location)
             except AttributeError:
                 print("ERROR: ToDo object has no subs")
         elif inp == 'rmtask':
