@@ -29,15 +29,6 @@ class Test:
 # TO-DO TESTS
 
 # get_date() / set_date() tests
-# 
-# Notes on set_date() tests:
-# - a date should follow the format "MM-DD-YYYY" ; any other format should fail to change date
-# - the "-" are unimportant, meaning that they may be replaced with any character ie: "12,15,1567" is considered valid
-# - dates with the above circumstances should have "-" as the final result for dividers
-# - ie: the above would be changed to "12-15-1567" in set_date()
-# - the Month must be a 2-digit integer (01 - 12)
-# - the Day must be a 2-digit integer (01 - 31)
-# - the Year must be a 4-digit integer (0001 - 9999) ; no year zero ; app is meant to be used with modern day dates only
 
 Test.check_expect(TEST_TODO_1.get_date(), "", "ToDo.get_date() - Default date")
 
@@ -53,33 +44,33 @@ Test.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,54
 
 TEST_TODO_2.set_date("12-31-9999")
 Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-9999') - valid upper bounds")
-
-TEST_TODO_2.set_date("00-31-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('00-31-9999') month out of bounds - under")
-
-TEST_TODO_2.set_date("13-31-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('13-31-9999') month out of bounds - over")
-
-TEST_TODO_2.set_date("12-00-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-00-9999') day out of bounds - under")
-
-TEST_TODO_2.set_date("12-32-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - over")
-
-TEST_TODO_2.set_date("01-31-0000")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('01-31-0000') try year zero")
-
-TEST_TODO_2.set_date("12-31-12345")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-12345') year length too long")
-
-TEST_TODO_2.set_date("01-31-123")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('01-31-123') year length too short")
-
-TEST_TODO_2.set_date("1-31-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') month length too short")
-
-TEST_TODO_2.set_date("1-1-9999")
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-1-9999') day length too short")
+#
+# TEST_TODO_2.set_date("00-31-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('00-31-9999') month out of bounds - under")
+#
+# TEST_TODO_2.set_date("13-31-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('13-31-9999') month out of bounds - over")
+#
+# TEST_TODO_2.set_date("12-00-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-00-9999') day out of bounds - under")
+#
+# TEST_TODO_2.set_date("12-32-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-32-9999') day out of bounds - over")
+#
+# TEST_TODO_2.set_date("01-31-0000")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('01-31-0000') try year zero")
+#
+# TEST_TODO_2.set_date("12-31-12345")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-12345') year length too long")
+#
+# TEST_TODO_2.set_date("01-31-123")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('01-31-123') year length too short")
+#
+# TEST_TODO_2.set_date("1-31-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-31-9999') month length too short")
+#
+# TEST_TODO_2.set_date("1-1-9999")
+# Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-1-9999') day length too short")
 
 TEST_TODO_1.set_date("06,15,5432")
 Test.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid with comma divider")

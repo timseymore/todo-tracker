@@ -66,7 +66,7 @@ class ToDo(Doable):
         return self.location
 
     # Setters
-    # TODO
+
     def set_date(self, d: str):
         """ Setter method """
         def format_date(d1: str, result: str, counter: int):
@@ -264,12 +264,11 @@ class ToDoTracker:
             except AttributeError:
                 print("ERROR: ToDo object has no subs")
         elif inp == 'addtodo':
-            # TODO: implement date and location options
             print("New To-do:")
             name = input(self.input_prompt)
-            print("Date for todo:")
+            print("Date (optional):")
             date = input(self.input_prompt)
-            print("Location for todo:")
+            print("Location (optional):")
             location = input(self.input_prompt)
             new = ToDo(name, date, location)
             try:
