@@ -45,11 +45,6 @@ Test.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,54
 TEST_TODO_2.set_date("12-31-9999")
 Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-9999') - valid upper bounds")
 
-Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('1-1-9999') day length too short")
-
-TEST_TODO_1.set_date("06,15,5432")
-Test.check_expect(TEST_TODO_1.get_date(), "06-15-5432", "ToDo.set_date('06,15,5432') - valid with comma divider")
-
 
 # set_location() tests
 TEST_TODO_1.set_location("here")
