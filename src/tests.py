@@ -50,6 +50,7 @@ Test.check_expect(TEST_TODO_2.get_date(), "12-31-9999", "ToDo.set_date('12-31-99
 TEST_TODO_1.set_location("here")
 Test.check_expect(TEST_TODO_1.get_location(), "here", "ToDo.set_location('here') - valid")
 
+# get_description tests
 Test.check_expect(TEST_TODO_1.get_description(), "ToDo 1 on 06-15-5432 @ here", "ToDo.get_description()")
 
 TEST_TODO_1.set_date("")
@@ -58,6 +59,7 @@ Test.check_expect(TEST_TODO_1.get_description(), "ToDo 1 @ here", "ToDo.set_date
 TEST_TODO_1.set_location("")
 Test.check_expect(TEST_TODO_1.get_description(), "ToDo 1", "ToDo.set_location(''), ToDo.get_description()")
 
+# get_complete set_complete tests
 Test.check_expect(TEST_TODO_1.get_complete(), False, "ToDo.get_complete() -> False")
 TEST_TODO_1.set_complete()
 Test.check_expect(TEST_TODO_1.get_complete(), True, "ToDo.set_complete(), ToDo.get_complete -> True")
