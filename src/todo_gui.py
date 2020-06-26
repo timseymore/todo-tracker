@@ -11,9 +11,9 @@ lb1.insert(1, "Todo Tracker")
 lb2 = Listbox(top)
 lb2.insert(1, "todo 1")
 
-
+# pack widgets
 lb1.pack()
 lb2.pack()
 
+# main loop
 top.mainloop()
-
