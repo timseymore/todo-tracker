@@ -2,19 +2,32 @@
 from tkinter import *
 
 import tkinter as tk
-import todo
+from todo import *
 
-top = tk.Tk()
 
-# widgets go here
-lb1 = Listbox(top)
-lb1.insert(1, "Todo Tracker")
-lb2 = Listbox(top)
-lb2.insert(1, "todo 1")
+# classes
+class ToDoTrackerGui(ToDoTracker):
+    def __init__(self):
+        self.root = Task("ToDo Tracker")
+        self.top = tk.Tk()
 
-# pack widgets
-lb1.pack()
-lb2.pack()
+    def main(self):
+        # preprocessing details
+        self.load_from_disk()
 
-# main loop
-top.mainloop()
+        # widgets go here
+        lb1 = Listbox(self.top)
+        lb1.insert(1, "Todo Tracker")
+        lb2 = Listbox(self.top)
+        lb2.insert(1, "todo 1")
+
+        # pack widgets
+        lb1.pack()
+        lb2.pack()
+
+        # main loop
+        self.top.mainloop()
+
+
+if __name__ == "__main__":
+    ToDoTrackerGui().main()
