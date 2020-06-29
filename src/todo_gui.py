@@ -20,7 +20,9 @@ class ToDoTrackerGui(ToDoTracker):
         # widgets go here
 
         # show current task
-        # current_task.add_doable(Task("task 1"))
+        # current_task.add_doable(Task("task 1")) # test line only
+        # current_task.add_doable(Task("task 2")) # test line only
+        # current_task.add_doable(Task("task 3")) # test line only
         lb1 = Listbox(self.top)
         lb1.insert(1, current_task)
         index = 2
