@@ -13,27 +13,25 @@ class ToDoTrackerGui(ToDoTracker):
         self.indent_space = "    "
 
     def main(self):
-        # preprocessing details
+        # preprocessing details #
         self.load_from_disk()
         current_task = self.root
 
-        # widgets go here
+        # widgets go here #
 
         # show current task
-        # current_task.add_doable(Task("task 1")) # test line only
-        # current_task.add_doable(Task("task 2")) # test line only
-        # current_task.add_doable(Task("task 3")) # test line only
-        lb1 = Listbox(self.top)
-        lb1.insert(1, current_task)
-        index = 2
-        for sub in current_task.nodes:
-            lb1.insert(index, self.indent_space + str(sub))
-            index += 1
 
-        # pack widgets
-        lb1.pack()
+        # task1 = Task("task 1")
+        # task1.add_doable(ToDo("todo 1"))
+        # task4 = Task("task 4")
+        # task1.add_doable(task4)
+        # task4.add_doable(ToDo("todo 2"))
+        # current_task.add_doable(task1)  # test line only
+        # current_task.add_doable(Task("task 2"))  # test line only
+        # current_task.add_doable(Task("task 3"))  # test line only
+        current_task.display_gui(self.indent_space, self.top)
 
-        # main loop
+        # main loop #
         self.top.mainloop()
 
 

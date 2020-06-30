@@ -4,7 +4,9 @@ A simple task manager console app
 
 - 2019 Tim Seymore
 """
+from tkinter import *
 
+import tkinter as tk
 import pickle
 import sys
 
@@ -173,6 +175,18 @@ class Task(Doable):
                 sub.display(indent_space + sub.indent_level)
             except AttributeError:
                 print("ERROR: " + sub.description + " has no attribute 'indent_level'")
+
+    def display_gui(self, indent_space: str, top):
+        lb1 = Listbox(top)
+        lb1.insert(1, self)
+        index = 2
+        for sub in self.nodes:
+            lb1.insert(index, indent_space + str(sub))
+            index += 1
+            for node in sub.nodes:
+                lb1.insert(index, indent_space * 2 + str(node))
+        # pack widgets
+        lb1.pack()
 
 
 class ToDoTracker:
