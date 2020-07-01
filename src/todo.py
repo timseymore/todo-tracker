@@ -185,6 +185,7 @@ class Task(Doable):
             index += 1
             for node in sub.nodes:
                 lb1.insert(index, indent_space * 2 + str(node))
+                index += 1
         # pack widgets
         lb1.pack()
 
