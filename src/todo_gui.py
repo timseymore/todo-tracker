@@ -20,7 +20,7 @@ class ToDoTrackerGui(ToDoTracker):
         # widgets go here #
 
         # main frame
-        frame = Frame(self.top)
+        frame = Frame(self.top, bg="blue", bd=3)
         frame.pack()
 
         # show current task
@@ -32,7 +32,7 @@ class ToDoTrackerGui(ToDoTracker):
         # current_task.add_doable(task1)  # test line only
         # current_task.add_doable(Task("task 2"))  # test line only
         # current_task.add_doable(Task("task 3"))  # test line only
-        current_task.display_gui(self.indent_space, self.top)
+        current_task.display_gui(self.indent_space, frame)
 
         # main loop #
         self.top.mainloop()
