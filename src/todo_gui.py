@@ -23,6 +23,17 @@ class ToDoTrackerGui(ToDoTracker):
         frame = Frame(self.top, bg="blue", bd=3)
         frame.pack()
 
+        # menu
+        menubar = Menu(self.top)
+
+        optionmenu = Menu(menubar, tearoff=0)
+        optionmenu.add_command(label="Exit", command=self.top.quit)
+        optionmenu.add_separator()
+        optionmenu.add_command(label="Exit", command=self.top.quit)
+        menubar.add_cascade(label="Options", menu=optionmenu)
+
+        self.top.config(menu=menubar)
+
         # show current task
         # task1 = Task("task 1")
         # task1.add_doable(ToDo("todo 1"))
