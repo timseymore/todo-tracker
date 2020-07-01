@@ -1,4 +1,6 @@
 
 .idea/todo-tracker.iml
 .idea/misc.xml
+.idea/dictionaries/Tim.xml
+
 src/__pycache__/todo.cpython-38.pyc
