@@ -11,23 +11,23 @@ class ToDoTrackerGui(ToDoTracker):
         self.root = Task("ToDo Tracker")
         self.top = tk.Tk()
         self.indent_space = "    "
+        self.current_task = self.root
+        self.frame = Frame(self.top, bg="blue", bd=3)
 
     def main(self):
         # preprocessing details #
         self.load_from_disk()
-        current_task = self.root
+        self.frame.pack()
 
         # widgets go here #
-
-        # main frame
-        frame = Frame(self.top, bg="blue", bd=3)
-        frame.pack()
 
         # menu
         menubar = Menu(self.top)
 
         optionmenu = Menu(menubar, tearoff=0)
-        optionmenu.add_command(label="Exit", command=self.top.quit)
+        optionmenu.add_command(label="Change task", command=self.top.quit)
+        optionmenu.add_command(label="Add task", command=self.addtask)
+        optionmenu.add_command(label="Add todo", command=self.top.quit)
         optionmenu.add_separator()
         optionmenu.add_command(label="Exit", command=self.top.quit)
         menubar.add_cascade(label="Options", menu=optionmenu)
@@ -43,10 +43,14 @@ class ToDoTrackerGui(ToDoTracker):
         # current_task.add_doable(task1)  # test line only
         # current_task.add_doable(Task("task 2"))  # test line only
         # current_task.add_doable(Task("task 3"))  # test line only
-        current_task.display_gui(self.indent_space, frame)
+        self.current_task.display_gui(self.indent_space, self.frame)
 
         # main loop #
         self.top.mainloop()
+
+    def addtask(self):
+        self.current_task.add_doable(Task("test task"))
+        self.current_task.display_gui(self.indent_space, self.frame)
 
 
 if __name__ == "__main__":
