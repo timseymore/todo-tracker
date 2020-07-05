@@ -15,42 +15,38 @@ class ToDoTrackerGui(ToDoTracker):
         self.frame = Frame(self.top, bg="blue", bd=3)
 
     def main(self):
-        # preprocessing details #
+        # - set up - #
+
         self.load_from_disk()
         self.frame.pack()
 
-        # widgets go here #
+        # - widgets - #
 
-        # menu
-        menubar = Menu(self.top)
+        self.display_menu()
+        self.display_current()
 
-        optionmenu = Menu(menubar, tearoff=0)
-        optionmenu.add_command(label="Change task", command=self.top.quit)
-        optionmenu.add_command(label="Add task", command=self.addtask)
-        optionmenu.add_command(label="Add todo", command=self.top.quit)
-        optionmenu.add_separator()
-        optionmenu.add_command(label="Exit", command=self.top.quit)
-        menubar.add_cascade(label="Options", menu=optionmenu)
-
-        self.top.config(menu=menubar)
-
-        # show current task
-        # task1 = Task("task 1")
-        # task1.add_doable(ToDo("todo 1"))
-        # task4 = Task("task 4")
-        # task1.add_doable(task4)
-        # task4.add_doable(ToDo("todo 2"))
-        # current_task.add_doable(task1)  # test line only
-        # current_task.add_doable(Task("task 2"))  # test line only
-        # current_task.add_doable(Task("task 3"))  # test line only
-        self.current_task.display_gui(self.indent_space, self.frame)
-
-        # main loop #
+        # - main loop - #
         self.top.mainloop()
 
     def addtask(self):
         self.current_task.add_doable(Task("test task"))
         self.current_task.display_gui(self.indent_space, self.frame)
+
+    def display_current(self):
+        self.current_task.display_gui(self.indent_space, self.frame)
+
+    def display_menu(self):
+        menu_bar = Menu(self.top)
+        # options menu
+        option_menu = Menu(menu_bar, tearoff=0)
+        option_menu.add_command(label="Change task", command=self.top.quit)
+        option_menu.add_command(label="Add task", command=self.addtask)
+        option_menu.add_command(label="Add todo", command=self.top.quit)
+        option_menu.add_separator()
+        option_menu.add_command(label="Exit", command=self.top.quit)
+        menu_bar.add_cascade(label="Options", menu=option_menu)
+
+        self.top.config(menu=menu_bar)
 
 
 if __name__ == "__main__":
