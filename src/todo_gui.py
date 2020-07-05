@@ -35,6 +35,7 @@ class ToDoTrackerGui(ToDoTracker):
     def display_current(self):
         self.current_task.display_gui(self.indent_space, self.frame)
 
+    # TODO
     def display_menu(self):
         menu_bar = Menu(self.top)
         # options menu
