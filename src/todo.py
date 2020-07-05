@@ -19,6 +19,7 @@ class Doable:
         self.complete = False
         self.description = description
         self.indent_level = " " * 2
+        self.nodes = []
 
     def get_complete(self) -> bool:
         """ Getter method """
