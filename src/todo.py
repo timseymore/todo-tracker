@@ -108,8 +108,6 @@ class Task(Doable):
     def __init__(self, description: str):
         """ Creates object instance """
         super().__init__(description)
-        self.subDoablesComplete = False
-        self.nodes = []
 
     def get_subs(self):
         """ Getter method """
