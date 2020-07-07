@@ -77,7 +77,7 @@ class ToDoTrackerGui(ToDoTracker):
     def display_menu(self):
         menu_bar = Menu(self.top)
         # options menu
-        option_menu = Menu(menu_bar, tearoff=0)
+        option_menu = Menu(menu_bar, tearoff=0, fg="blue")
         option_menu.add_command(label="Change task", command=self.change_task)
         option_menu.add_command(label="Add task", command=self.add_task)
         option_menu.add_command(label="Add todo", command=self.add_todo)
