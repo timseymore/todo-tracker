@@ -71,14 +71,15 @@ class ToDoTrackerGui(ToDoTracker):
         self.display_current()
 
     # TODO
-    def change_task(self):
-        self.top.quit()
+    def change_task_gui(self):
+        self.change_task("test task", self.current_task)
+        self.display_current()
 
     def display_menu(self):
         menu_bar = Menu(self.top)
         # options menu
         option_menu = Menu(menu_bar, tearoff=0, fg="blue")
-        option_menu.add_command(label="Change task", command=self.change_task)
+        option_menu.add_command(label="Change task", command=self.change_task_gui)
         option_menu.add_command(label="Add task", command=self.add_task)
         option_menu.add_command(label="Add todo", command=self.add_todo)
         option_menu.add_separator()
