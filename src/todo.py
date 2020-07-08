@@ -211,7 +211,7 @@ class Task(Doable):
                 lb1.insert(index, indent_space * 2 + str(node))
                 index += 1
         # pack widgets
-        lb1.pack()
+        lb1.grid(row=0, column=0)
 
 
 class ToDoTracker:
