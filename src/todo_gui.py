@@ -72,7 +72,7 @@ class ToDoTrackerGui(ToDoTracker):
 
     # TODO
     def change_task_gui(self):
-        self.change_task("test task", self.current_task)
+        self.current_task = self.change_task("test task", self.current_task)
         self.display_current()
 
     def display_menu(self):
