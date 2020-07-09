@@ -53,12 +53,19 @@ class ToDoTrackerGui(ToDoTracker):
         # - widgets - #
         self.display_menu()
         self.display_current()
+        self.display_input()
 
         # - main loop - #
         self.top.mainloop()
 
     def display_current(self):
         self.current_task.display_gui(self.indent_space, self.frame)
+
+    def display_input(self):
+        l1 = Label(self.top, text="Input")
+        l1.pack(side="left")
+        w = Entry(self.top)
+        w.pack(side="right")
 
     # TODO
     def add_task(self):
