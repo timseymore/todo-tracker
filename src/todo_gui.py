@@ -84,6 +84,7 @@ class ToDoTrackerGui(ToDoTracker):
 
     def display_menu(self):
         menu_bar = Menu(self.top)
+        # TODO: add all options to menu
         # options menu
         option_menu = Menu(menu_bar, tearoff=0, fg="blue")
         option_menu.add_command(label="Change task", command=self.change_task_gui)
@@ -95,7 +96,7 @@ class ToDoTrackerGui(ToDoTracker):
 
         self.top.config(menu=menu_bar)
 
-    # TODO
+    # TODO: prompt to save before exit
     def exit(self):
         self.top.quit()
 
