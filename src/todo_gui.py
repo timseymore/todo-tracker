@@ -77,6 +77,16 @@ class ToDoTrackerGui(ToDoTracker):
         self.current_task.add_doable(ToDo("test todo"))  # to be changed
         self.display_current()
 
+    # TODO: use input field to remove todo
+    def remove_todo(self):
+        self.current_task.remove_doable(ToDo("test todo"))  # to be changed
+        self.display_current()
+
+    # TODO: use input field to add todo
+    def remove_task(self):
+        self.current_task.remove_doable(ToDo("test todo"))  # to be changed
+        self.display_current()
+
     # TODO: use input field to change task
     def change_task_gui(self):
         self.current_task = self.change_task("test task", self.current_task)  # to be changed
@@ -90,6 +100,8 @@ class ToDoTrackerGui(ToDoTracker):
         option_menu.add_command(label="Change task", command=self.change_task_gui)
         option_menu.add_command(label="Add task", command=self.add_task)
         option_menu.add_command(label="Add todo", command=self.add_todo)
+        option_menu.add_command(label="Remove todo", command=self.remove_todo)
+        option_menu.add_command(label="Remove task", command=self.remove_task)
         option_menu.add_separator()
         option_menu.add_command(label="Exit", command=self.exit)
         menu_bar.add_cascade(label="Options", menu=option_menu)
