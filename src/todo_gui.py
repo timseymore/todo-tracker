@@ -53,7 +53,7 @@ class ToDoTrackerGui(ToDoTracker):
         # - widgets - #
         self.display_menu()
         self.display_current()
-        self.display_input()
+        # self.display_input()
 
         # - main loop - #
         self.top.mainloop()
@@ -64,12 +64,13 @@ class ToDoTrackerGui(ToDoTracker):
     def display_input(self):
         label = Label(self.top, text="Input")
         label.pack(side="left")
-        input_field = Entry(self.top)
+        input_field = Entry(self.top, borderwidth=5)
         input_field.pack(side="right")
+        return input_field
 
     # TODO: use input field to add task
     def add_task(self):
-        self.current_task.add_doable(Task("test task"))  # to be changed
+        self.current_task.add_doable(Task(self.display_input().get()))  # to be changed
         self.display_current()
 
     # TODO: use input field to add todo
